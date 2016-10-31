@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		.box {
+			width: 300px;
+			margin: 100px auto;
+			border: 1px solid #ccc;
+		}
+		.bottom div{
+			width: 100%;
+			height: 300px;
+			background-color: pink;
+			display: none;
+		}
+		.purple {
+			background-color: purple;
+		}
+		.bottom .show {
+			display: block;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+
+			// var btns = document.getElementsByTagName("button");
+			// var divs = document.getElementById("divs").getElementsByTagName("div");
+
+			// for (var i = 0; i < btns.length; i++) {
+			// 	btns[i].index = i; //**
+
+			// 	btns[i].onclick = function(){
+					
+			// 		for (var j = 0; j < btns.length; j++) {
+			// 			//清空所有的btn 类名 
+			// 			btns[j].className = "";
+			// 			// 先隐藏下面所有的 div盒子
+			// 			divs[j].className = "";
+			// 		}
+			// 		// 当前的那个按钮 的添加 类名 
+			// 		this.className = "purple";
+
+			// 		// 点击button的序号,对应的内容盒子, 设置为显示
+			// 		divs[this.index].className = "show";
+			// 	}
+			// }
+
+
+			/*
+			   封装：如果页面中有多个这种tab切换模块，可以进一步进行封装，通过模块最外层div的id进行区分。
+			   多个盒子互不影响，可以通过id给他们分开
+			   封装tab栏切换函数
+			*/
+
+			function tab(targetId){
+				var target = document.getElementById(targetId);
+				var btns = target.getElementsByTagName("button");
+				var divs = target.children[1].getElementsByTagName("div");
+
+				for (var i = 0; i < btns.length; i++) {
+					btns[i].index = i;
+					btns[i].onclick = function(){
+						for (var j = 0; j < btns.length; j++) {
+							btns[j].className = "";
+							divs[j].className = "";
+						}
+						this.className = "purple";
+						divs[this.index].className = "show";
+					}
+				}
+			}
+
+			tab("clothing");
+		}
+	</script>
+</head>
+<body>
+	<div class="box" id="clothing">
+		<div class="top">
+			<button class="purple">第一个</button>
+			<button>第二个</button>
+			<button>第三个</button>
+			<button>第四个</button>
+			<button>第五个</button>
+		</div>
+		<div class="bottom" id="divs">
+			<div class="show">这是 1 号盒子</div>
+			<div>这是 2 号盒子</div>
+			<div>这是 3 号盒子</div>
+			<div>这是 4 号盒子</div>
+			<div>这是 5 号盒子</div>
+		</div>
+	</div>
+</body>
+</html>

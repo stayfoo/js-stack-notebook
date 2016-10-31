@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		.box {
+			width: 512px;
+			height: 400px;
+			margin: 100px auto;
+			border: 1px solid #f00;
+			overflow: hidden;  /*清除溢出盒子的内容*/
+			position: relative;
+		}
+		.box span{
+			width: 100%;
+			height: 200px;
+			background-color: rgba(0,0,0,.1);
+			position: absolute;
+			left: 0;
+			cursor: pointer;
+		}
+		.up {
+			top: 0;
+		}
+		.down {
+			bottom: 0;
+		}
+		.box img {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			function $(id) { return document.getElementById(id); }
+
+			var num = 0; //控制图片的top值
+			var timer = null; //定时器
+			$("picUp").onmouseover = function(){
+				clearInterval(timer);
+				timer = setInterval(function(){
+					num -= 3;
+					num >= -1070 ? $("pic").style.top = num + "px" : clearInterval(timer);
+					// 图片的高度：1470  显示盒子高度：400
+				},30);
+			}
+			$("picDown").onmouseover = function(){
+				clearInterval(timer);
+				timer = setInterval(function(){
+					num++;
+					num < 0 ? $("pic").style.top = num + "px" : clearInterval(timer);
+				},30);
+			}
+			$("picUp").parentNode.onmouseout = function(){
+				clearInterval(timer);
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="box">
+		<img src="images/mi.png" alt="" id="pic" />
+		<span class="up" id="picUp"></span>
+		<span class="down" id="picDown"></span>
+	</div>
+</body>
+</html>

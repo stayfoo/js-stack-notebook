@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		* {margin: 0;padding: 0;}
+		.scroll {
+			width: 400px;
+			height: 8px;
+			background-color: #ccc;
+			margin: 100px;
+			position: relative;
+		}
+		.bar {
+			width: 10px;
+			height: 22px;
+			background-color: #369;
+			position: absolute;
+			top: -7px;
+			left: 0;
+			cursor: pointer;
+		}
+		.mask {
+			width: 0;
+			height: 100%;
+			background-color: #369;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var scrollBar = document.getElementById("scrollBar");
+			var bar = scrollBar.children[0];
+			var mask = scrollBar.children[1];
+			var demo = document.getElementById("demo");
+
+			bar.onmousedown = function(event){
+				var event = event || window.event;
+				var leftVal = event.clientX - this.offsetLeft; //水平条盒子左端 距离该网页左边的距离（相对可见区域）
+
+				//拖动一定要放在 down 里面才可以
+				var that = this;
+				document.onmousemove = function(){
+					var event = event || window.event;
+					that.style.left = event.clientX - leftVal + "px";
+
+					var val = parseInt(that.style.left);
+					if (val < 0) {
+						that.style.left = 0;
+					}else if(val > 390){
+						that.style.left = "390px";
+					}
+					mask.style.width = that.style.left;  //遮罩盒子的宽度
+
+					//计算百分比
+					demo.innerHTML = "已经走了：" + parseInt(parseInt(that.style.left) / 390 * 100) + "%";
+
+					// 防止选择拖动（按下鼠标然后拖拽，可以选择文字）
+					window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+				}
+
+				document.onmouseup = function(){
+					document.onmousemove = null; //弹起鼠标不做任何操作
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="scroll" id="scrollBar">
+		<div class="bar"></div>
+		<div class="mask"></div>
+	</div>
+	<div id="demo"></div>
+</body>
+</html>

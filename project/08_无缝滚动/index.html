@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>无缝滚动</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		ul{list-style: none;}
+		.box {
+			width: 600px;
+			height: 200px;
+			margin: 100px auto;
+			background-color: pink;
+			position: relative;
+			overflow: hidden;
+		}
+		.box ul li {
+			float: left;
+		}
+		.box ul {
+			width: 400%;    /*4张图片*/
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var scroll = document.getElementById("scroll");
+			var ul = scroll.children[0];
+
+			var num = 0;          //控制左侧值 left
+			var timer = null;     //定时器
+			timer = setInterval(autoPlay,20);
+
+			function autoPlay(){
+				num--;
+				num <= -1200 ? num = 0 : num;  
+				//1200：能够同时显示两个图片，一个图片300px，可见区域宽度是600
+
+				// 当-1200：刚好把显示到1->2->3->4->1->2 , 然后切换num=0, 刚好是1->2
+
+				ul.style.left = num + "px";
+			}
+			scroll.onmouseover = function(){  //鼠标经过大盒子   停止定时器
+				clearInterval(timer);
+			}
+			scroll.onmouseout = function(){
+				timer = setInterval(autoPlay,20);  //开启定时器
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="box" id="scroll">
+		<ul>
+			<li><img src="images/01.jpg" alt="" /></li>
+			<li><img src="images/02.jpg" alt="" /></li>
+			<li><img src="images/03.jpg" alt="" /></li>
+			<li><img src="images/04.jpg" alt="" /></li>
+			<li><img src="images/01.jpg" alt="" /></li>
+			<li><img src="images/02.jpg" alt="" /></li>
+		</ul>
+	</div>
+</body>
+</html>

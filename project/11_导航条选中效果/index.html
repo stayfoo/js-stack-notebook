@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		*{margin: 0;padding: 0}
+		ul{list-style: none;}
+		body{background-color: #000;}
+		.nav {
+			width: 800px;
+			height: 42px;
+			background: url("images/rss.png") no-repeat right center #fff;
+			margin: 100px auto;
+			border-radius: 5px;
+			position: relative;
+		}
+		.cloud {
+			width: 83px;
+			height: 42px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: url("images/cloud.gif") no-repeat;
+		}
+		.nav ul {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.nav li {
+			float: left;
+			width: 83px;
+			height: 42px;
+			line-height: 42px;
+			text-align: center;
+			color: #000;
+			cursor: pointer;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var cloud = document.getElementById("cloud"); 
+			var nav = document.getElementById("nav");
+			var lis = nav.children[1].children;
+
+			var current = 0; //用于存放点击时候的offsetLeft
+			for (var i = 0; i < lis.length; i++) {
+				lis[i].onmouseover = function(){
+					target = this.offsetLeft;  //把左侧的位置，给target，鼠标悬空时候的li的offsetLeft
+				}
+				lis[i].onmouseout = function(){
+					target = current;         //鼠标离开，target是 刚才我们点击的位置
+				}
+				lis[i].onclick = function(){
+					current = this.offsetLeft; //点击的时候 把当前位置 存储一下
+				}
+			}
+			//缓动公式
+			var leader = 0, target = 0;
+			setInterval(function(){
+				leader = leader + (target - leader) / 10;
+				cloud.style.left = leader + "px";
+			},10);
+		}
+	</script>
+</head>
+<body>
+	<div class="nav" id="nav">
+		<span class="cloud" id="cloud"></span>
+		<ul>
+			<li>Blog</li>
+			<li>About</li>
+			<li>Project</li>
+			<li>Book</li>
+			<li>Reader</li>
+			<li>其他</li>
+		</ul>
+	</div>
+</body>
+</html>

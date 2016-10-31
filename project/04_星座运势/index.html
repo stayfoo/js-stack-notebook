@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		.box {
+			width: 300px;
+			height: 180px;
+			margin: 100px auto;
+			border: 1px solid #D2E1F1;
+		}
+		.dt {
+			padding-left: 10px;
+			line-height: 35px;
+			font-weight: 700;
+			color: #0873c0;
+		}
+		.dd {
+			padding: 10px;
+		}
+		.dd-t {
+			overflow: hidden;
+		}
+		.icon {
+			margin-right: 10px;
+			width: 50px;
+			height: 50px;
+			float: left;
+			background: url("images/astroIcon.png") no-repeat;
+			background-position: 0px 0px; /*background-position: 0px 0px; x、y之间是空格，不是逗号*/
+		}
+		.right div {
+			font-size: 14px; 
+		}
+		.yunshi {
+			margin-top: 10px;
+			width: 80px;
+			height: 13px;
+			background: url("images/yunshi.png") no-repeat;
+			display: inline-block;
+			position: relative;
+		}
+		.star {
+			width: 60px;
+			height: 13px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: url("images/yunshi.png") no-repeat left bottom;
+		}
+		.dd-b {
+			margin-top: 10px;
+			font-family: ;
+		}
+	</style>
+	<script type="text/javascript">
+		// 要显示的数据
+		var arr = [10,9,10,9,8,7,6,5,4,3,2,1]; //运势数据，星星
+		var txtArr = ["白羊座的内容","金牛座的内容","双子座的内容","巨蟹座的内容","狮子座的内容","处女座的内容","天秤座的内容","天蝎座的内容","射手座的内容","摩羯座内容","水瓶座内容","双鱼座内容"]; //显示说明情况
+
+		window.onload = function(){
+			//获取元素
+			function $(id){ return document.getElementById(id); }
+
+			var sele = $("sele");
+			var icon = $("ico");
+			var content = $("content");
+			var star = $("sta");
+
+			sele.onchange = function(){
+				// 索引号乘以 50 ，精灵图向下移动，是负数
+				icon.style.backgroundPosition = "0 " + (-this.value*50)+"px";
+				content.innerHTML = txtArr[this.value];
+				// 星✨图 盒子一共是80px，一共分成10份，每一份是8像素
+				star.style.width = arr[this.value] * 8 + "px";
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="box">
+		<div class="dt"><a href="#">星座运势</a></div>
+		<div class="dd">
+			<div class="dd-t">
+				<div class="icon" id="ico"></div>
+				<div class="right">
+					<select name="" id="sele">
+						<option value="0">白羊座(03.21-04.19)</option>
+						<option value="1">金牛座(04.20-05.20)</option>
+						<option value="2">双子座(05.21-06.21)</option>
+						<option value="3">巨蟹座(06.22-07.22)</option>
+						<option value="4">狮子座(07.23-08.22)</option>
+						<option value="5">处女座(08.23-09.22)</option>
+						<option value="6">天秤座(09.23-10.23)</option>
+						<option value="7">天蝎座(10.24-11.22)</option>
+						<option value="8">射手座(11.23-12.21)</option>
+						<option value="9">摩羯座(12.22-01.19)</option>
+						<option value="10">水瓶座(01.20-02.18)</option>
+						<option value="11">双鱼座(02.19-03.20)</option>
+					</select>
+					<div>今日运势:
+						<span class="yunshi">
+							<span class="star" id="sta"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="dd-b" id="content">
+			近期你的个人发展可能迎来严酷的转型期，一些竞争压力可能会让你的职场出现变革。你在追求个人目...
+				<span>[详细]</span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

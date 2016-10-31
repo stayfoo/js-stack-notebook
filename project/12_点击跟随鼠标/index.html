@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		.image {
+			width: 99px;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var image = document.getElementById("image");
+			
+			document.onclick = function(){
+				var event = event || window.event;
+				targetX = event.clientX - image.offsetWidth /2;
+				targetY = event.clientY - image.offsetHeight /2;
+				//clientY : 可视区域的为基准 	
+				//offsetWidth：以带定位的父级元素为基准，如果没有就是body。此处是body
+			}
+			//缓动
+			var leaderX = 0,
+				leaderY = 0,
+				targetX = 0,
+				targetY = 0;
+			setInterval(function(){
+				leaderX = leaderX + (targetX - leaderX) / 10;
+				leaderY = leaderY + (targetY - leaderY) / 10;
+				image.style.left = leaderX + "px";
+				image.style.top = leaderY + "px";
+			},10);
+		}
+	</script>
+</head>
+<body>
+	<img src="images/img.jpg" alt="" id="image" class="image" />
+</body>
+</html>

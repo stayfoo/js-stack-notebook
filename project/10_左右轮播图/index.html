@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title> 左右轮播图 </title>
+	<style type="text/css">
+		body,ul,li,img{margin: 0;padding: 0;list-style: none;}
+		#box{
+			width: 490px;
+			height: 170px;
+			padding: 5px;
+			position: relative;
+			border: 1px solid #ccc;
+			margin: 100px auto 0;
+			overflow: hidden;
+		}
+		.ad{
+			width: 490px;
+			height: 170px;
+			overflow: hidden;
+			position: relative;
+		}
+		#box img{width: 490px;}
+		.ad ol{
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+		}
+		.ad ul li{float: left;}
+		.ad ul{
+			position: absolute;
+			top: 0;
+			width: 2940px;
+		}
+		.ad ul li.current{display: block;}
+		#arr {
+			display: none;
+		}
+		#arr span{
+			width: 40px;
+			height: 40px;
+			position: absolute;;
+			left: 5px;
+			top: 50%;
+			margin-top: -20px;
+			background: #000;
+			cursor: pointer;
+			line-height: 40px;
+			text-align: center;
+			font-weight: bold;
+			font-family: '黑体';
+			font-size: 30px;
+			color: #fff;
+			opacity: 0.3;
+			border: 1px solid #fff;
+		}
+		#arr #right{
+			right: 5px; 
+			left: auto;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+
+			function $(id) {
+				return document.getElementById(id);
+			}
+
+			var box = $("box");
+			box.onmouseover = function(){
+				$("arr").style.display = "block";
+			}
+			box.onmouseout = function(){
+				$("arr").style.display = "none";
+			}
+
+			$("right").onclick = function(){
+				target -= 490;
+			}
+			$("left").onclick = function(){
+				target += 490;
+			}
+
+			// 缓动动画
+			var leader = 0, target = 0;
+			setInterval(function(){
+				if (target >= 0) {
+					target = 0;
+				}else if(target <= -1960){
+					target = -1960;
+				}
+				leader = leader + (target - leader) / 10;
+				$("imgs").style.left = leader + "px";
+			},30);
+		}
+	</script>
+</head>
+<body>
+	<div id="box" class="all">
+		<div class="ad">
+			<ul id="imgs">
+				<li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/2.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/3.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/4.jpg" alt="" /></a></li>
+				<li><a href="#"><img src="images/5.jpg" alt="" /></a></li>
+			</ul>
+		</div>
+		<div id="arr"><span id="left"><</span><span id="right">></span></div>
+	</div>
+</body>
+</html>
