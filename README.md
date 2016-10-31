@@ -26,7 +26,7 @@ Contents
 
 换肤。
 
-#### 逻辑 
+### 逻辑 
 
 >1、更换的是`body`的`background`背景图片
 >
@@ -55,7 +55,7 @@ var changeThemo = function(num){
 }
 ```
 
-#### 技术思想 
+### 技术思想 
 
 * 入口函数：
 
