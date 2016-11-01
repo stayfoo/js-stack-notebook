@@ -1,7 +1,7 @@
 项目介绍
 ==================
 
-Contents
+Contents <a id="contents"></a>
 -----------------
 
 * [01_skinTransform](#Demo_01)
@@ -19,6 +19,11 @@ Contents
 * [13_放大镜](#Demo_13)
 * [14_拖动水平条](#Demo_14)
 * [15_拖动弹出框](#Demo_15)
+* [16_模拟垂直滚动条](#Demo_16)
+* [17_固定导航栏](#Demo_17)
+* [18_两侧跟随的广告](#Demo_18)
+* [19_返回顶部的小火箭](#Demo_19)
+* [20_屏幕滑动效果](#Demo_20)
 
 
 01_skinTransform <a id="Demo_01"></a>
@@ -976,13 +981,173 @@ window.getSelection ? window.getSelection().removeAllRanges() : document.selecti
 
 
 
-16
+16_模拟垂直滚动条  <a id="Demo_16"></a>
+-------------------------
+
+### 逻辑
+
+>1、布局：大盒子包括所有，内容盒子，滚动条盒子包含滑块盒子；
+>
+>2、JS交互：（成比例）
+>
+>2.1 计算滑块的的高度；
+【容器的高度 / 内容的高度  ==  滑块的高度 / 容器的高度（滚动条的高度）】
+>
+>2.2 计算滑块移动的距离；
+>
+>【滑块移动的距离 = 光标距离页面顶部的距离（拖拽滑块时，移动的）- t】：
+如果初始位置是顶部，此公式计算的是滑块移动的距离；
+如果初始位置不在顶部，此公式计算的是滑块移动的距离 + 滑块距离滚动条顶部的距离。
+>
+>【初始位置：t = 光标距离网页顶部的距离（鼠标刚点下时，初始位置） - 滑块顶部距离滚动条顶部的距离 == 滚动条顶部距离网页顶部的距离 + 光标距离滑块顶部的距离】
+>
+>2.3 计算内容盒子移动的距离；
+【 (内容盒子高度 - 大盒子高度) / (大盒子高度 - 滑块盒子的高度) * 滑块盒子移动的数值 】
+>
+
+
+### 技术思想
+
+* `event.clientY` 、`.offsetTop` 、`.offsetHeight` 、`.style.height` 、`.style.top`
+
+
+17_固定导航栏  <a id="Demo_17"></a>
 ---------------------
 
+### 逻辑
+
+>1、当导航栏滚动到顶部的时候，给导航栏添加固定定位样式；
+>
+>2、监听scrollTop，当scrollTop == 导航栏offsetTop时，导航栏滚动到了顶部；
+>
+
+### 技术思想
+
+* 固定定位
+
+固定定位，就是相对浏览器窗口定位。
+页面如何滚动，这个盒子显示的位置不变。
+固定定位脱标！
+
+* scrollTop / scrollLeft
+
+>`scrollTop`：顶部被卷去的高度。
+>它就是当你滑动滚轮浏览网页的时候网页隐藏在屏幕上方的距离。
+
+获得scrollTop，浏览器兼容性封装：
+>
+>1、谷歌浏览器和没有声明头部`<!DOCTYPE html>`：
+`document.body.scrollTop`
+>
+>2、火狐和其他浏览器：
+`document.documentElement.scrollTop`
+>
+>3、ie9+ 和最新浏览器：
+`window.pageYOffset`
+>
 
 
+```javascript
+function scroll() {
+	if (window.pageYOffset != null) { //ie9+  和其他浏览器
+		return {
+			left: window.pageXOffset,
+			top: window.pageYOffset
+		}
+	}else if(document.compatMode == "CSS1Compat"){  //声明了 头<!DOCTYPE html>
+		//检测是不是怪异模式的浏览器  -- 就是没有  声明 <!DOCTYPE html>
+		return {
+			left: document.documentElement.scrollLeft,
+			top: document.documentElement.scrollTop
+		}
+	}
+	return { //剩下怪异模式的浏览器
+		left: document.body.scrollLeft,
+		top: document.body.scrollTop
+	}
+}
+```
+
+使用在`window.onscroll`中获取：
+
+```javascript
+window.onscroll = function(){
+				if (scroll().top >= navTop) {
+            //scroll().top 兼容性封装
+				}else{
+
+				}
+			}
+```
 
 
-
-17
+18_两侧跟随的广告  <a id="Demo_18"></a>
 ---------------------
+
+### 逻辑
+
+>1、绝对定位固定广告img盒子，当滚动的时候改变 style.top 。
+>
+>2、style.top的计算：初始的`.offsetTop` + `scrollTop`
+>
+>3、缓动动画
+
+
+### 技术思想
+
+* scrollTop的使用
+
+* 定时器、缓动动画
+
+
+19_返回顶部的小火箭  <a id="Demo_19"></a>
+---------------------
+
+### 逻辑
+
+>1、当页面向下滚动后（scrollTop>0）,设置小火箭盒子（固定定位）的display出现或隐藏；
+>
+>2、点击小火箭，自动滚动页面到顶部，使用缓动动画；
+>
+
+滚动到页面的某个坐标位置：
+
+```javascript
+window.scrollTo(x,y);
+```
+
+### 技术思想
+
+* scrollTop的使用（浏览器兼容性封装）
+* 定时器、缓动动画
+
+
+20_屏幕滑动效果  <a id="Demo_20"></a>
+---------------------
+
+### 逻辑
+
+>1、满屏效果：分为多个模块显示，每个显示模块都是满屏的效果；
+>
+>2、点击竖直导航，会滑动到相应的显示模块；（缓动动画）
+>
+
+### 技术思想
+
+* 取整：
+
+`parseInt()`：只是截断小数点取整，不进行四舍五入
+`Math.round()`：四舍五入取整
+
+* scrollTop的使用（浏览器兼容性封装）
+* 定时器、缓动动画
+
+
+
+
+
+
+===============================================================
+
+
+[返回目录](#contents)

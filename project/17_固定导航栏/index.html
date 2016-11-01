@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		img {
+			vertical-align: top;
+		}
+		.main {
+			margin: 0 auto;
+			width: 1000px;
+			margin-top: 10px;
+		}
+		.fixed {
+			position: fixed;
+			top: 0;
+			left: 0;
+		}
+	</style>
+	<script src="tool.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		window.onload = function () {
+			
+			var nav = $("Q-nav");
+			var navTop = nav.offsetTop;  //导航栏距离顶部的距离
+
+			window.onscroll = function(){
+				if (scroll().top >= navTop) {
+					nav.className = "nav fixed";
+				}else{
+					nav.className = "nav";
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="top" id="top">
+		<img src="images/top.png" alt="" />
+	</div>
+	<div class="nav" id="Q-nav">
+		<img src="images/nav.png" alt="" />
+	</div>
+	<div class="main">
+		<img src="images/main.png" alt="" />
+	</div>
+</body>
+</html>

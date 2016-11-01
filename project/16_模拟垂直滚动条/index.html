@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>模拟垂直滚动条</title>
+	<style type="text/css">
+		.box {
+			width: 300px;
+			height: 500px;
+			border: 1px solid red;
+			margin: 100px;
+			position: relative;
+			overflow: hidden;
+		}
+		.content {
+			height: auto;
+			padding: 5px 18px 5px 5px;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.scroll {
+			width: 18px;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			right: 0;
+			background-color: #eee; 
+		}
+		.bar {
+			width: 100%;
+			height: 100px;
+			background-color: red;
+			cursor: pointer;
+			border-radius: 10px;
+			position: absolute;
+			top: 0;
+			left: 0; 
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var box = document.getElementById("box");
+			var content = box.children[0]; //内容盒子
+			var scroll = box.children[1];  //右边盒子-滚动条
+			var bar = scroll.children[0];  //滑块-红色
+
+			// 1、首先计算红色滑块的高度。 特点：内容越多，滑块越短。
+			// 滑块的长度计算公式（成比例）：容器的高度 / 内容的高度 * 容器的高度 
+			// 容器的高度 / 内容的高度  ==  滑块的高度 / 容器的高度（滚动条的高度）
+			var barHeight = box.offsetHeight / content.offsetHeight * box.offsetHeight;
+			bar.style.height = barHeight + "px";
+
+			//拖动红色滑块
+			startScroll(bar,content);
+			/*
+			 *    obj：滑块 
+			 * target：内容盒子
+			 */ 
+			function startScroll(obj,target){
+				obj.onmousedown = function(event){
+					var event = event || window.event;
+					//光标距离网页顶部的距离（鼠标刚点下时，初始位置） - 滑块顶部距离滚动条顶部的距离 == 滚动条顶部距离网页顶部的距离 + 光标距离滑块顶部的距离
+					var t = event.clientY - this.offsetTop; 
+					
+					var that = this;
+					document.onmousemove = function(event){
+						var event = event || window.event;
+						var barTop = event.clientY - t; //滑块 移动的距离 = 光标距离页面顶部的距离（拖拽滑块时，移动的） - t
+						
+						// 内容盒子要移动的距离
+						// (内容盒子高度 - 大盒子高度) / (大盒子高度 - 滑块盒子的高度) * 滑块盒子移动的数值
+						var contentTop = (target.offsetHeight - target.parentNode.offsetHeight) / (target.parentNode.offsetHeight - that.offsetHeight) * barTop;
+
+						//
+						if (barTop < 0) { //滑块到顶部
+							barTop = 0;
+						}else if(barTop > target.parentNode.offsetHeight - that.offsetHeight){ //滑块到底部
+							barTop = target.parentNode.offsetHeight - that.offsetHeight;
+						}else{ 
+							target.style.top = -contentTop + "px"; //往上走是负值
+						}
+						that.style.top = barTop + "px";
+						window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty(); //防止拖动滚动条滑块的时候，选中文字
+					}
+
+					document.onmouseup = function(){
+						document.onmousemove = null;
+					}
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="box" id="box">
+		<div class="content">
+			张无忌于八卦方位之学，小时候也曾听父亲讲过，但所学甚浅，因此在秘道之中看了阳顶天的遗书后，须小昭指点，方知“无妄”位的所在。这时他听周芷若说及四象顺逆的道理，心中一凛，察看何氏夫妇和高矮二老的步法招数，果是从四象八卦中变化而出，无怪自己的乾坤大挪移心法一点施展不上。原来西域最精深的武功，遇上了中土最精深的学问，相形之下，还是中土功夫的义理更深。张无忌所以暂得不败，只不过他已将西域武功练到了最高境界，而何氏夫妇、高矮二老的中土武功所学尚浅而已。在这一霎时之间，他脑海中如电闪般连转了七八个念头，立时想到七八种方法，每一种均可在举手间将四人一一击倒。<br/><br/>
+
+		    但他转念又想：“倘若我此时施展，只怕灭绝师太要怪上周姑娘，这老师太心狠手辣，甚么事做不出来？我可不能连累了周姑娘。”当下手上招式半点不改，凝神察看对手四人的招数，他既已领会到敌手武功的总纲，看出去自是头头是道，再不似先前有如乱丝一团，分不清中间的纠葛披纷。周芷若见他处境仍不好转，暗自焦急，寻思：“他在全力赴敌之际，自不能在片刻间悟到这种精微的道理。”眼见何氏夫妇越逼越紧，张无忌似乎更加难以支持，朗声说道：“师父，弟子料想铁琴先生下一步便要抢往‘归妹’位了，不知对不对？” 灭绝师太尚未回答，班淑娴柳眉倒竖，喝道：“峨嵋派的小姑娘，这小子是你甚么人，要你一再回护于他？你吃里扒外，我昆仑派可不是好惹的。”<br/><br/><br/><br/>
+
+		    周芷若被她说破心事，满脸通红。灭绝师太喝道：“芷若，别多问了，他昆仑派不是好惹的，你没听见吗？”这两句话的语气，显是袒护徒儿。张无忌心中好生感激，暗想若再缠斗下去，周姑娘或要另生他法来相助自己，要是给灭绝师太瞧破了，可于她有极大危险，于是哈哈大笑，说道：“我是峨嵋派的手下败将，曾被灭绝师太擒获，她们峨嵋派当然比你昆仑派高明得多。”向左踏出两步，右手梅枝挥出，一股劲风扑向矮老者的后心。这一招的方位时刻，拿捏得恰到好处，矮老者身不由主，钢刀便往班淑娴肩头砍了下去，原来张无忌使的正是乾坤大挪移心法，但依着八卦方位，倒反了矮老者刀招的去势。班淑娴忙回剑挡格，呼的一声，高老者的钢刀却又已砍至。何太冲抢上相护，举剑格开高老者的弯刀，张无忌回掌拍出，引得矮老者刀尖刺向何太冲小腹。班淑娴大怒，刷刷刷三剑，逼得矮老者手忙脚乱。矮老者叫道：“别上了这小子的当！”何太冲登即省悟，倒反长剑，向张无忌刺去。张无忌挪移乾坤，何太冲这剑在中途转了方向，嗤的一响，刺中了高老者的左臂。高老者痛得哇哇大叫，举刀猛向何太冲当头砍下。矮老者挥刀格开，喝道：“师弟别乱，是那小子捣鬼，唉哟……”原来便在此时，张无忌迫使班淑娴剑招转向，刺中了矮老者的肩后。顷刻之间，华山二老先后中剑受伤，旁观众人轰然大乱。只见张无忌梅枝轻拂、手掌斜引，以高老者的刀去攻班淑娴左胁，以何太冲之剑去削矮老者背心。再斗数合，蓦地里何太冲夫妇双剑相交，挺刀互格，高矮二老者兵器碰撞，挥刀砍杀。到这时候人人都已看出，乃是张无忌从中牵引，搅乱了四人兵刃的方向，至于他使的是甚么法子，却无一能解。只有杨逍曾学过一些乾坤大挪移的初步功夫，依稀瞧了些眉目出来，但也决计不信这少年竟能学会了这门神功。<br/><br/><br/>
+
+		    但见场中夫妇相斗，同门互斫，杀得好看煞人。班淑娴不住呼叫：“转无妄，进蒙位，抢明夷……”可是乾坤大挪移功夫四面八方的笼罩住了，不论他们如何变换方位，奋力挣扎，刀剑使将出去，总是不由自主的招呼到自己人身上。高老者叫道：“师哥，你出手轻些成不成？”矮老者道：“我是砍这小贼，又不是砍你。”高老者叫道：“师哥小心，我这一刀只怕要转弯……”果然不出所料，话声未毕，他手上钢刀斜斜的砍向矮老者腰间。何太冲道：“娘子，这小贼……”班淑娴当的一声，将长剑掷在地下。矮老者心想不错，若以拳掌扭打，料想这小贼再不能使此邪法，跟着抛去单刀，出拳向张无忌胸口打去，哪知飕的一声响，何太冲长剑迎面点至。矮老者手中没了兵刃，急忙低头相避。班淑娴叫道：“兵刃撤手！”何太冲用力一甩，长剑远远掷出。高老者也跟着松手放刀，以擒拿手向张无忌后颈抓去。五指一紧，掌中多了一件硬物，一看却是自己的钢刀，原来给张无忌抢过来递回他手中。高老者道：“我不用兵刃！”使劲掷下。张无忌斜身抓住，又已送在他手里。接连数次，高老者始终无法将兵刃抛掷脱手，惊骇之余，自己想想也觉古怪，哈哈大笑起来，说道：“他妈的，臭小子当真邪门！”这时矮老者和何氏夫妇拳脚齐施，分别向张无忌猛攻。华山、昆仑的拳掌之学，殊不弱于兵刃，一拳一脚，均具极大威力。但张无忌滑如游鱼，每每在间不容发之际避开，有时反击一招半式，却又令三人极难挡架。<br/><br/><br/>
+
+		    到此地步，四人均已知万难取胜，各自存了全身而退的打算。高老者突然叫道：“臭小子，暗器来了！”一声咳嗽，一口浓痰向张无忌吐去。张无忌侧身让过，高老者已乘机将钢刀向背后抛出，笑道：“你还能……啊哟……对不住……”原来张无忌左掌反引，将班淑娴带了过来，噗的一声轻响，高老者这口浓痰正好吐在她眉心。<br/><br/><br/>
+		</div>
+		<div class="scroll">
+			<div class="bar"></div>
+		</div>
+	</div>
+</body>
+</html>

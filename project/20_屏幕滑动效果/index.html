@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		ul, ol {
+			list-style-type: none; 
+		}
+		* {margin:0;padding: 0;}
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		#ul {
+			width: 100%;
+			height: 100%;
+		}
+		ul li {
+			width: 100%;
+			height: 100%;
+		}
+		#ol {
+			position: fixed;
+			top: 0;
+			left: 50px;
+		}
+		#ol li {
+			width: 50px;
+			height: 50px;
+			border: 1px solid #000;
+		}
+	</style>
+	<script src="tool.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			var ulBox = $("ul");
+			var ulBoxLi = ulBox.children;
+			var olBox = $("ol");
+			var olBoxLi = olBox.children;
+
+			var bgColor = ["pink","purple","orange","blue","green"];
+			var leader = 0, target = 0, timer = null;
+			for (var i = 0; i < ulBoxLi.length; i++) {
+				ulBoxLi[i].style.backgroundColor = bgColor[i];
+				olBoxLi[i].style.backgroundColor = bgColor[i];
+				olBoxLi[i].index = i; //记录当前的索引号
+
+				olBoxLi[i].onclick = function(){
+					clearInterval(timer);
+
+					target = ulBoxLi[this.index].offsetTop; //核心语句
+
+					timer = setInterval(function(){
+						leader = leader + (target - leader) / 10;
+						window.scrollTo(0,leader); //屏幕滑动
+						// console.log(leader + 'leader');
+						// console.log(target + 'target');
+						if (Math.round(leader) == Math.round(target)) { 
+							//parseInt()，  只是截断小数点取整，不进行四舍五入
+							//Math.round()，四舍五入取整
+							clearInterval(timer);
+						}
+					},30);
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<ul id="ul">
+		<li>首页</li>
+		<li>关注</li>
+		<li>动态</li>
+		<li>风格</li>
+		<li>作品</li>
+	</ul>
+	<ol id="ol">
+		<li>首页</li>
+		<li>关注</li>
+		<li>动态</li>
+		<li>风格</li>
+		<li>作品</li>
+	</ol>
+</body>
+</html>
