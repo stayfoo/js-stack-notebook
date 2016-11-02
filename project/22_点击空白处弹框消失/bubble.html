@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>取消事件冒泡</title>
+	<script type="text/javascript">
+		window.onload = function(){
+			var btn = document.getElementById("btn");
+
+			document.onclick = function(){
+				alert("点击了空白处");
+			}
+			btn.onclick = function(){
+				alert("点击了按钮");
+				var event = event || window.event;
+
+				/*
+				 * 如果不取消事件冒泡，点击按钮，即调用按钮事件，
+				 	事件冒泡传递给document的点击事件，这样就会弹出两个框。
+				 */
+				if (event && event.stopPropagation) {
+					event.stopPropagation(); //w3c 标准
+				}else{
+					event.cancelBubble = true;  //ie678  
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<button id="btn">点击</button>
+</body>
+</html>

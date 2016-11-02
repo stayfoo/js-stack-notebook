@@ -24,6 +24,8 @@ Contents <a id="contents"></a>
 * [18_两侧跟随的广告](#Demo_18)
 * [19_返回顶部的小火箭](#Demo_19)
 * [20_屏幕滑动效果](#Demo_20)
+* [21_响应式页面原理](#Demo_21)
+* [22_点击空白处弹框消失](#Demo_22)
 
 
 01_skinTransform <a id="Demo_01"></a>
@@ -1144,7 +1146,136 @@ window.scrollTo(x,y);
 
 
 
+21_响应式页面原理  <a id="Demo_21"></a>
+---------------------
 
+### 逻辑
+
+>1、响应式判断，通过判断网页可视区域的宽度，来显示不同的样式；
+>
+>2、封装获取可视区域大小的函数，考虑浏览器兼容性；
+>
+
+```javascript
+        reSize();//页面一加载先调用函数一次
+				window.onresize = reSize; //不带括号，只要屏幕触发，就调用reSize函数
+
+				// 响应式判断 可视区域宽度
+				function reSize(){
+  					var clientWidth = client().width;
+  					if (clientWidth > 960) {
+  						   document.body.style.backgroundColor = "red";
+  					}else if (clientWidth > 640) {
+  						   document.body.style.backgroundColor = "green";
+  					}else{
+  						   document.body.style.backgroundColor = "blue";
+  					}
+				}
+```
+
+### 技术思想
+
+* 获取可视区域大小的函数封装：
+
+```javascript
+  function client(){
+  		if (window.innerWidth != null) { //ie9+ 最新浏览器
+    			return {
+    				width: window.innerWidth,
+    				height: window.innerHeight
+    			}
+  		}else if(document.compatMode === "CSS1Compat"){ //标准浏览器
+    			return {
+    				width: document.documentElement.clientWidth,
+    				height: document.documentElement.clientHeight
+    			}
+  		}
+  		return { //怪异浏览器
+    			width: document.body.clientWidth,
+    			height: document.body.clientHeight
+  		}
+	}
+```
+
+* 窗口大小改变事件：
+
+`onresize` ：事件会在窗口或框架被调整大小时发生。
+
+```javascript
+window.onresize = function(){}
+```
+
+* clientWidth   
+
+clientWidth ：返回的是 可视区 大小 浏览器内部的大小；
+
+window.screen.width ：返回的是屏幕 分辨率 跟浏览器没有关系；
+
+
+22_点击空白处弹框消失  <a id="Demo_22"></a>
+---------------------
+
+### 逻辑
+
+>1、点击登录，出现弹框-遮罩效果，点击页面除弹框以外的其他区域 效果消失，点击弹框不消失；
+>
+>2、需要阻断`login.onclick`的事件冒泡，
+防止点击`login.onclick`事件，引起`document.onclick`事件的发生；
+>
+
+```javascript
+window.onload = function () {
+			function $(id) { return document.getElementById(id); }
+
+			var login = $("login");
+			login.onclick = function(event){
+				  $("mask").style.display = "block";
+				  $("show").style.display = "block";
+				  document.body.style.overflow = "hidden"; //不显示滚动条
+
+				  //取消冒泡
+				  var event = event || window.event;
+  				if (event && event.stopPropagation) {
+  					  event.stopPropagation();  //  w3c 标准
+  				}else{
+  					  event.cancelBubble = true;  // ie 678  ie浏览器
+  				}
+			}
+
+			document.onclick = function(event){
+  				var event = event || window.event;
+  				// event.target.id ：返回的是点击的某个对象的id的名字
+  				// event.srcElement.id ：
+  				var targetId = event.target ? event.target.id : event.srcElement.id;
+
+  				if (targetId != "show") { //点击的不是弹框，点击的是遮罩
+  					  $("mask").style.display = "none";
+  					  $("show").style.display = "none";
+  					  document.body.style.overflow = "visible";  //显示滚动条
+  				}
+			}
+}
+```
+
+### 技术思想
+
+* 取消事件冒泡（浏览器兼容性）：
+
+```javascript
+        //取消冒泡
+				var event = event || window.event;
+				if (event && event.stopPropagation) {
+					  event.stopPropagation();  //  w3c 标准
+				}else{
+					  event.cancelBubble = true;  // ie 678  ie浏览器
+				}
+```
+
+* 返回的是点击的某个对象的id的名字：
+
+```javascript
+var targetId = event.target ? event.target.id : event.srcElement.id;
+```
 
 
 ===============================================================

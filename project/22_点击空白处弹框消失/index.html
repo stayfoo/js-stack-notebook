@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>点击空白处弹框消失</title>
+	<style type="text/css">
+		body {
+			height: 2000px;
+		}
+		#mask {
+			width: 100%;
+			height: 100%;
+			opacity: 0.4;  /*半透明*/
+			filter: alpha(opacity = 40);  /*ie 6 半透明*/
+			background-color: black;
+			position: fixed;
+			top: 0;
+			left: 0;
+			display: none; 
+		}
+		#show {
+			width: 300px;
+			height: 300px;
+			background-color: #fff;
+			position: fixed;
+			left: 50%;
+			top: 50%;
+			margin: -150px 0 0 -150px;
+			display: none; 
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function () {
+			function $(id) { return document.getElementById(id); }
+
+			var login = $("login");
+			login.onclick = function(event){
+				$("mask").style.display = "block";
+				$("show").style.display = "block";
+				document.body.style.overflow = "hidden"; //不显示滚动条
+				
+				//取消冒泡
+				var event = event || window.event;
+				if (event && event.stopPropagation) {
+					event.stopPropagation();  //  w3c 标准
+				}else{
+					event.cancelBubble = true;  // ie 678  ie浏览器
+				}
+			}
+
+			document.onclick = function(event){
+				var event = event || window.event;
+				// event.target.id ：返回的是点击的某个对象的id的名字
+				// event.srcElement.id ：
+				var targetId = event.target ? event.target.id : event.srcElement.id;
+				
+				if (targetId != "show") { //点击的不是弹框，点击的是遮罩
+					$("mask").style.display = "none";
+					$("show").style.display = "none";
+					document.body.style.overflow = "visible";  //显示滚动条
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<a href="javascript:;" id="login">注册</a>
+	<a href="javascript:;">登录</a>
+	<div id="mask"></div>
+	<div id="show"></div>
+</body>
+</html>

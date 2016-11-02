@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>响应式原理</title>
+	<style type="text/css">
+		
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+				// window.screen.width  屏幕分辨率
+				/*
+				 *  封装可视区域大小的函数
+				 */
+				function client(){
+					if (window.innerWidth != null) { //ie9+ 最新浏览器
+						return {
+							width: window.innerWidth,
+							height: window.innerHeight
+						}
+					}else if(document.compatMode === "CSS1Compat"){ //标准浏览器
+						return {
+							width: document.documentElement.clientWidth,
+							height: document.documentElement.clientHeight
+						}
+					}
+					return { //怪异浏览器
+						width: document.body.clientWidth,
+						height: document.body.clientHeight
+					}
+				}
+
+				reSize();//页面一加载先调用函数一次
+				window.onresize = reSize; //不带括号，只要屏幕触发，就调用reSize函数
+				
+				// 响应式判断 可视区域宽度
+				function reSize(){
+					var clientWidth = client().width;
+					if (clientWidth > 960) {
+						document.body.style.backgroundColor = "red";
+					}else if (clientWidth > 640) {
+						document.body.style.backgroundColor = "green";
+					}else{
+						document.body.style.backgroundColor = "blue";
+					}
+				}
+		}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
