@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>动画函数基本的封装</title>
+	<style type="text/css">
+		div {
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			position: absolute;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			function $(id) { return document.getElementById(id); }
+
+			$("btn200").onclick = function(){
+				animate($("run"),200);
+			}
+
+			$("btn400").onclick = function(){
+				animate($("run"),400);
+			}
+
+			/*
+			 * obj：做动画的对象
+			 * target：目标位置
+			 */ 
+			function animate(obj,target){
+				obj.timer = setInterval(function(){
+					if (obj.offsetLeft > target) {
+						clearInterval(obj.timer);
+					}
+					obj.style.left = obj.offsetLeft + 10 + "px";
+				},30);
+			}
+		}
+	</script>
+</head>
+<body>
+	<button id="btn200">200</button>
+	<button id="btn400">400</button>
+	<div id="run"></div>
+</body>
+</html>

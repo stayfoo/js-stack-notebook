@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>轮播图</title>
+	<style type="text/css">
+		* {padding: 0; margin:0; list-style: none; border: 0;}
+		.all {
+			width: 500px;
+			height: 200px;
+			padding: 7px;
+			border: 1px solid #ccc;
+			margin: 100px auto;
+			position: relative;
+		}
+		.screen {
+			width: 500px;
+			height: 200px;
+			overflow: hidden;
+			position: relative;
+		}
+		.screen li {
+			width: 500px;
+			height: 200px;
+			overflow: hidden;
+			float: left;
+		}
+		.screen ul{
+			position: absolute;
+			left: 0;
+			top: 0px;
+			width: 3000px;
+		}
+		.all ol {
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+			line-height: 20px;
+			text-align: center;
+		}
+		.all ol li {
+			float: left;
+			width: 20px;
+			height: 20px;
+			background: #fff;
+			border: 1px solid #ccc;
+			margin-left: 10px;
+			cursor: pointer; 
+		}
+		.all ol li.current{
+			background: yellow;
+		}
+	</style>
+	<script type="text/javascript">
+		/*
+		 * 动画函数封装
+		 * obj：动画对象
+		 * target：运动的目标位置
+		 */ 
+		function animate(obj,target){
+			clearInterval(obj.timer);
+			var speed = obj.offsetLeft < target ? 15 : -15;  //步长
+			obj.timer = setInterval(function(){
+				var result = target - obj.offsetLeft; 
+
+				obj.style.left = obj.offsetLeft + speed + "px"; 
+				if (Math.abs(result)<=15) { //当差值小于步长，直接到目标位置
+					clearInterval(obj.timer);
+					obj.style.left = target + "px"; 
+				}
+			},10);
+		}
+
+		function $(id) { return document.getElementById(id);}
+
+		window.onload = function(){
+			var box = $("all");
+			var ul = $("ul");
+			var ulLis = ul.children;
+
+			//无缝滚动，克隆第一张，放到最后一张
+			ul.appendChild(ul.children[0].cloneNode(true));
+
+			var ol = document.createElement("ol"); //生成ol
+			box.appendChild(ol); //把ol追加到box里面
+			for (var i = 0; i < ulLis.length-1; i++) {
+				var li = document.createElement("li");
+				li.innerHTML = i + 1; //焦点添加数字
+				ol.appendChild(li); //添加到ol里面
+			}
+			ol.children[0].className = "current";
+
+			//动画
+			var olLis = ol.children;
+			for (var i = 0; i < olLis.length; i++) {
+				olLis[i].index = i;
+				olLis[i].onmouseover = function(){
+					for (var j = 0; j < olLis.length; j++) {
+						olLis[j].className = "";
+					}
+					this.className = "current";
+					animate(ul,-this.index*500);
+
+					square = key = this.index; //当前索引
+				}
+			}
+
+			//自动轮播
+			var timer = null;
+			var key = 0;     //控制播放的张数
+			var square = 0;  //控制小方块
+			timer = setInterval(autoplay,1000); 
+			function autoplay(){
+				key++;  
+				if (key>ulLis.length - 1) {
+					ul.style.left = 0;
+					key = 1;
+				}
+				animate(ul,-key*500); 
+				square++;
+				if (square > olLis.length -1) {
+					square = 0;
+				}
+				for (var i = 0; i < olLis.length; i++) {
+					olLis[i].className = "";
+				}
+				olLis[square].className = "current";
+			}
+
+			//鼠标经过大盒子要停止定时器
+			box.onmouseover = function(){
+				clearInterval(timer);
+			}
+			box.onmouseout = function(){
+				timer = setInterval(autoplay,1000); 
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="all" id="all">
+		<div class="screen">
+			<ul id="ul">
+				<li><img src="images/1.jpg" width="500" height="200" /></li>
+				<li><img src="images/2.jpg" width="500" height="200" /></li>
+				<li><img src="images/3.jpg" width="500" height="200" /></li>
+				<li><img src="images/4.jpg" width="500" height="200" /></li>
+				<li><img src="images/5.jpg" width="500" height="200" /></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

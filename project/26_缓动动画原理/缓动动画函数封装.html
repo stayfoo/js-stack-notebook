@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		div {
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			position: absolute;
+			left: 0;
+			opacity: 0.3;
+		}
+	</style>
+	<script type="text/javascript">
+		function $(id) { return document.getElementById(id); }
+		window.onload = function(){
+			var btn200 = $("btn200");
+			var btn400 = $("btn400");
+			var box = $("box");
+
+			btn200.onclick = function(){
+				animate(box,200);
+			}
+			btn400.onclick = function(){
+				animate(box,400);
+			}
+
+			/*
+			 *    obj：动画对象
+			 * target：目标距离
+			 */
+			function animate(obj,target){
+				 clearInterval(obj.timer);
+				 obj.timer = setInterval(function(){
+				 	//计算步长   动画原理：盒子本身的位置 + 步长
+				 	var step = (target - obj.offsetLeft) / 10;
+				 	step = step > 0 ? Math.ceil(step) : Math.floor(step); //取整步长
+
+				 	obj.style.left = obj.offsetLeft + step + "px";
+				 	if (obj.offsetLeft == target) {
+				 		clearInterval(obj.timer);
+				 	}
+				 },30);
+			}
+		}
+	</script>
+</head>
+<body>
+	<button id="btn200">200</button>
+	<button id="btn400">400</button>
+	<div id="box"></div>
+</body>
+</html>

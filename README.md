@@ -26,7 +26,10 @@ Contents <a id="contents"></a>
 * [20_屏幕滑动效果](#Demo_20)
 * [21_响应式页面原理](#Demo_21)
 * [22_点击空白处弹框消失](#Demo_22)
-
+* [23_选中文字弹出层](#Demo_23)
+* [24_动画原理](#Demo_24)
+* [25_轮播图(利用动画原理)](#Demo_25)
+* [26_缓动动画原理](#Demo_26)
 
 01_skinTransform <a id="Demo_01"></a>
 ---------------------
@@ -1278,7 +1281,195 @@ var targetId = event.target ? event.target.id : event.srcElement.id;
 ```
 
 
+23_选中文字弹出层  <a id="Demo_23"></a>
+---------------------
+
+### 逻辑
+
+>1、获取选中的文字，存储起来；
+>
+>2、如果选中的文字不为空，显示弹出层，选中的文字插入弹出层；
+>
+>3、点击空白处隐藏；
+
+### 技术思想
+
+* 获取选中文字（浏览器兼容写法）
+
+```javascript
+if (window.getSelection) { //获取我们选中的文字
+	txt = window.getSelection().toString(); //转换为字符串
+}else{
+	txt = document.selection.createRange().text; //ie的写法
+}
+```
+
+* 获取点击的盒子的id：
+
+```javascript
+        document.onmousedown = function(event){  //点击空白处隐藏
+					  var event = event || window.event;
+            //获取点击的盒子的id
+					  var targetId = event.target ? event.target.id : event.srcElement.id;
+        }
+```
+
+
+24_动画原理  <a id="Demo_24"></a>
+--------------------------
+
+### 逻辑
+
+>加入步长的概念
+>
+
+步动画：
+
+```javascript
+/*
+ * obj：做动画的对象
+ * target：目标位置
+ */
+function animate(obj,target){
+		obj.timer = setInterval(function(){
+				if (obj.offsetLeft > target) {
+					clearInterval(obj.timer);
+				}
+				obj.style.left = obj.offsetLeft + 10 + "px";
+		},30);
+}
+```
+
+匀速动画函数封装：
+
+```javascript
+/*  
+ *  匀速动画封装
+ *
+ *      obj：动画对象
+ *   target：运动距离
+ */
+function animate(obj,target){
+	  clearInterval(obj.timer);
+    //步长，有正负，在目标位置左边 还是 右边
+	  var speed = obj.offsetLeft < target ? 5 : -5;
+
+		obj.timer = setInterval(function(){
+				var result = target - obj.offsetLeft; //当前位置距离目标位置的距离
+
+				obj.style.left = obj.offsetLeft + speed + "px";
+
+				if (Math.abs(result)<=5) {  //当小于步长，直接到目标位置
+						clearInterval(obj.timer);
+						obj.style.left = target + "px";
+				}
+		},30);
+}
+```
+
+### 技术思想
+
+* 动画的基本原理：
+
+盒子的`.style.left` = 盒子的`.offsetLeft` + 步长 + "px";
+
+(步长可以自定义)
+
+
+25_轮播图(利用动画原理)  <a id="Demo_25"></a>
+---------------------
+
+### 逻辑
+
+>1、加入匀速动画原理，不再是之前的计数器原理；
+>
+>2、实现无缝滚动，需要在ul-li最后一张图片添加第一张图片；
+当滚动到最后一张时，瞬间切换回第一张，达到无缝滚动的效果；
+>
+>3、动态生成ol-li焦点，设置当前样式类，设置onmouseover事件；
+>
+>4、封装自动轮播函数，利用计时器；
+需要操控ul-li，ol-li两部分;
+>
+
+
+### 技术思想
+
+* 克隆盒子
+
+```javascript
+//无缝滚动，克隆第一张，放到最后一张
+ul.appendChild(ul.children[0].cloneNode(true));
+```
+
+
+26_缓动动画原理  <a id="Demo_26"></a>
+---------------------
+
+### 逻辑
+
+>1、关键：计算步长；
+>
+>2、使用动画原理；
+盒子的`.style.left` = 盒子的`.offsetLeft` + 步长 + "px";
+>
+
+```javascript
+/*
+ *    obj：动画对象
+ * target：目标距离
+ */
+function animate(obj,target){
+	 clearInterval(obj.timer);
+	 obj.timer = setInterval(function(){
+  	 	//计算步长   动画原理：盒子本身的位置 + 步长
+  	 	var step = (target - obj.offsetLeft) / 10;
+  	 	step = step > 0 ? Math.ceil(step) : Math.floor(step); //取整步长
+
+  	 	obj.style.left = obj.offsetLeft + step + "px";
+  	 	if (obj.offsetLeft == target) {
+  	 		clearInterval(obj.timer);
+  	 	}
+	 },30);
+}
+```
+
+### 技术思想
+
+* 动画原理：
+
+盒子的`.style.left` = 盒子的`.offsetLeft` + 步长 + "px";
+
+* 步长的计算：
+
+```javascript
+//步长
+var step = (target - box.offsetLeft) / 10;  
+//取整
+step = step > 0 ? Math.ceil(step) : Math.floor(step);
+```
+
+* 取整函数：
+
+```javascript
+// 向上取整
+console.log(Math.ceil(1.01))  //2
+console.log(Math.ceil(1.9))   //2
+console.log(Math.ceil(-1.3))  //-1
+//floor  地板   向下取整
+console.log(Math.floor(1.01)) //1
+console.log(Math.floor(1.9))  //1
+console.log(Math.floor(-1.3)) //-2
+// 四舍五入
+console.log(Math.round(1.01)) //1
+console.log(Math.round(1.5))  //2
+```
+
+
+
+
 ===============================================================
+
 
 
 [返回目录](#contents)

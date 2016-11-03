@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>选中文字弹出层</title>
+	<style type="text/css">
+		div {
+			width: 400px;
+			margin: 50px;
+		}
+		#demo {
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: none; 
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			function $(id) { return document.getElementById(id); }
+
+			$("test").onmouseup = function(event){
+				var event = event || window.event;
+				var x = event.clientX; //鼠标的坐标
+				var y = event.clientY; 
+
+				var txt; //用于存储选中文字的变量
+
+				if (window.getSelection) { //获取我们选中的文字
+					txt = window.getSelection().toString(); //转换为字符串
+				}else{
+					txt = document.selection.createRange().text; //ie的写法
+				}
+
+				if (txt) {  //所有的字符串都为真； ""是假； 所有的数字为真，0为假； 
+					//看看有没有选中的文字，没有选中文字为空的，就不应该执行；点击一下鼠标 就是空
+					showBox(x,y,txt);
+				}
+
+				/*
+				 *  mousex,mousey：鼠标的坐标
+				 *    contentText：选中的文字
+				 */
+				function showBox(mousex,mousey,contentText){ 
+					setTimeout(function(){
+						$("demo").style.display = "block";
+						$("demo").style.left = mousex + "px";
+						$("demo").style.top = mousey + "px";
+						$("demo").innerHTML = contentText;
+					},200);
+				}
+
+				document.onmousedown = function(event){  //点击空白处隐藏
+					var event = event || window.event;
+					
+					var targetId = event.target ? event.target.id : event.srcElement.id; //获取点击的盒子的id
+
+					if (targetId != "demo") {
+						$("demo").style.display = "none";
+					}
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<span id="demo"></span>
+	<div id="test">谢逊道：“三天之后，树叶便会萎黄跌落，半个月后，大树全身枯槁。我这一拳已将大树的脉络从中震断了。”张翠山和殷素素不胜骇异，但知他素来不打诳语，此言自非虚假。</div>
+	<div id="another">谢逊道：“三天之后，树叶便会萎黄跌落，半个月后，大树全身枯槁。我这一拳已将大树的脉络从中震断了。”张翠山和殷素素不胜骇异，但知他素来不打诳语，此言自非虚假。</div>
+</body>
+</html>

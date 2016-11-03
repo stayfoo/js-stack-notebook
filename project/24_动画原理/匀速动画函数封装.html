@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>匀速动画函数封装</title>
+	<style type="text/css">
+		#box {
+			position: absolute;
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+		}
+		#box1 {
+			position: absolute;
+			width: 200px;
+			height: 200px;
+			top: 150px;
+			background-color: purple;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			function $(id) { return document.getElementById(id); }
+
+			var box1 = $("box1");
+			var box = $("box");
+			var btn200 = $("btn200");
+			var btn400 = $("btn400");
+
+			btn200.onclick = function(){
+				animate(box,100);
+				animate(box1,200);
+			}
+			btn400.onclick = function(){
+				animate(box,200);
+			}
+			
+			/*  
+			 *  匀速动画封装
+			 *
+			 *      obj：动画对象
+			 *   target：运动距离
+			 */
+			function animate(obj,target){
+				clearInterval(obj.timer);
+
+				var speed = obj.offsetLeft < target ? 5 : -5; //步长，有正负，在目标位置左边 还是 右边
+
+				obj.timer = setInterval(function(){
+					var result = target - obj.offsetLeft; //当前位置距离目标位置的距离
+
+					obj.style.left = obj.offsetLeft + speed + "px";
+
+					if (Math.abs(result)<=5) {  //当小于步长，直接到目标位置
+						clearInterval(obj.timer);
+						obj.style.left = target + "px"; 
+					}
+				},30);
+			}
+		}
+	</script>
+</head>
+<body>
+	<button id="btn200">200</button>
+	<button id="btn400">400</button>
+	<div id="box"></div>
+	<div id="box1"></div>
+</body>
+</html>

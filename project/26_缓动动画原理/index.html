@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>缓动动画原理（步长）</title>
+	<style type="text/css">
+		div {
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			position: absolute;
+			left: 0;
+		}
+	</style>
+	<script type="text/javascript">
+		function $(id) { return document.getElementById(id); }
+
+		window.onload = function(){
+			var btn = $("btn");
+			var box = $("box");
+
+			var target = 400;
+			var timer = null;
+
+			btn.onclick = function(){
+				timer = setInterval(function(){
+					var step = (target - box.offsetLeft) / 10;  //步长
+					step = step > 0 ? Math.ceil(step) : Math.floor(step); //取整
+
+					box.style.left = box.offsetLeft + step + "px";
+
+					if (box.offsetLeft == target) { //判断结束条件
+						clearInterval(timer);
+					}
+				},30);
+			}
+		}
+	</script>
+</head>
+<body>
+	<button id="btn">开始</button>
+	<div id="box"></div>
+</body>
+</html>

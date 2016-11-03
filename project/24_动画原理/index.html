@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>动画原理</title>
+	<style type="text/css">
+		div {
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			position: absolute; 
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			//动画的基本原理  盒子的offsetLeft + 步长
+			var btn = document.getElementsByTagName("button")[0];
+			var div = document.getElementsByTagName("div")[0];
+			var timer = null;
+
+			btn.onclick = function(){
+				timer = setInterval(function(){
+					if (div.offsetLeft > 400) {
+						clearInterval(timer);
+					}
+					div.style.left = div.offsetLeft + 10 + "px";
+				},20);
+			}
+		}
+	</script>
+</head>
+<body>
+	<button>开始</button>
+	<div></div>
+</body>
+</html>
