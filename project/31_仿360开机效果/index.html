@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="utf-8">
+	<title>仿360开机效果</title>
+	<style type="text/css">
+		.box{
+			width: 322px;
+			position: fixed;
+			bottom: 0;
+			right: 0;
+		}
+		span{
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 30px;
+			height: 20px;
+			cursor: pointer;
+		}
+	</style>
+	<script type="text/javascript">
+		function $(id) { return document.getElementById(id); }
+		/* 
+		 * 获得某盒子对象的样式属性值
+		 *  obj：对象
+		 * attr：样式属性
+		 * 
+		 * 返回传递过来的某个属性(值+px)
+		 */
+		function getStyle(obj,attr){
+			if (obj.currentStyle) {
+				return obj.currentStyle[attr]; //ie 等
+			}else{
+				return window.getComputedStyle(obj,null)[attr]; //w3c浏览器
+			}
+		}
+		/*
+		 * 封装多个属性的运动框架
+		 *     obj：运动对象
+		 *    json： {k:v,k:v,.....}   eg：{top:500}，{width: 200, top: 800,left: 200}
+		 *      fn：回调函数。 动画结束，执行回调函数。
+		 */
+		function animate(obj,json,fn){
+			clearInterval(obj.timer);
+
+			obj.timer = setInterval(function(){
+				var flag = true;
+				for (var attr in json) {
+					var current = parseInt(getStyle(obj,attr));
+					var step = (json[attr] - current) /10;  //   距离/10
+					step = step > 0 ? Math.ceil(step) : Math.floor(step);
+					
+					obj.style[attr] = current + step + "px";
+
+					if (current != json[attr]) {
+						flag = false;
+					}
+				}
+				if (flag) {
+					clearInterval(obj.timer);
+
+					if (fn) {
+						fn();
+					}
+				}
+			},30);
+		}
+
+		window.onload = function(){
+			var b = $("b");
+			var closeAd = document.getElementsByTagName("span")[0];
+			
+			closeAd.onclick = function(){
+				animate(b,{height: 0}, function(){
+					animate(b.parentNode, {width:0});
+				});
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="box" id="box">
+		<span></span>
+		<div class="hd" id="t">
+			<img src="images/t.jpg" alt="" />
+		</div>
+		<div class="bd" id="b">
+			<img src="images/b.jpg" alt="" />
+		</div>
+	</div>
+</body>
+</html>

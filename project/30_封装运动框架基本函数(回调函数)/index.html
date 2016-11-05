@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="utf-8">
+	<title>封装运动框架基本函数(回调函数)</title>
+	<style type="text/css">
+		div {
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			position: absolute;
+			left: 0;
+			top: 50;
+			border-radius: 50%;
+		}
+	</style>
+	<script type="text/javascript">
+		function $(id) { return document.getElementById(id); }
+		/* 
+		 * 获得某盒子对象的样式属性值
+		 *  obj：对象
+		 * attr：样式属性
+		 * 
+		 * 返回传递过来的某个属性(值+px)
+		 */
+		function getStyle(obj,attr){
+			if (obj.currentStyle) { //ie 等
+				return obj.currentStyle[attr];
+			}else{
+				return window.getComputedStyle(obj,null)[attr]; //w3c 浏览器
+			}
+		}
+		/*
+		 * 封装多个属性的运动框架
+		 *     obj：运动对象
+		 *    json： {k:v,k:v,.....}   eg：{top:500}，{width: 200, top: 800,left: 200}
+		 *      fn：回调函数。 动画结束，执行回调函数。
+		 */
+		function animate(obj,json,fn){
+			clearInterval(obj.timer);
+
+			obj.timer = setInterval(function(){
+				var flag = true;
+
+				for (var attr in json) {
+					var current = parseInt(getStyle(obj,attr));
+					var step = (json[attr] - current) / 10;
+					step = step > 0 ? Math.ceil(step) : Math.floor(step);
+					
+					obj.style[attr] = current + step + "px";
+
+					if (current != json[attr]) {
+						flag = false;
+					}
+				}
+				if (flag) {
+					clearInterval(obj.timer);
+
+					if (fn) { //动画结束，执行回调函数
+						fn(); 
+					}
+				}
+			},30);
+		}
+		window.onload = function(){
+			var btn200 = $("btn200");
+			var btn400 = $("btn400");
+			var box    = $("box");
+
+			btn200.onclick = function(){
+				animate(box,{width:200, top:800, left:200},function(){alert("动画结束，执行回调函数！")});
+			}
+			btn400.onclick = function(){
+				animate(box,{top:500});
+			}
+		}
+	</script>
+</head>
+<body>
+	<button id="btn200">200</button>
+	<button id="btn400">400</button>
+	<div id="box"></div>
+</body>
+</html>

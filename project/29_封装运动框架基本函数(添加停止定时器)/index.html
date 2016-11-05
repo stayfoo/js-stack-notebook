@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>封装运动框架基本函数(添加停止定时器)</title>
+	<style type="text/css">
+		div {
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			position: absolute;
+			left: 0;
+			top: 50px;
+			border-radius: 50%;
+		}
+	</style>
+	<script type="text/javascript">
+		function $(id) { return document.getElementById(id); }
+		/* 
+		 * 获得某盒子对象的样式属性值
+		 *  obj：对象
+		 * attr：样式属性
+		 * 
+		 * 返回传递过来的某个属性(值+px)
+		 */
+		function getStyle(obj,attr){
+			if (obj.currentStyle) {
+				return obj.currentStyle[attr]; //ie 等
+			}else{
+				return window.getComputedStyle(obj,null)[attr]; //w3c 浏览器
+			}
+		}
+		/*
+		 * 封装多个属性的运动框架
+		 *     obj：运动对象
+		 *    json： {k:v,k:v,.....}   eg：{top:500}，{width: 200, top: 800,left: 200}
+		 */
+		function animate(obj,json){
+			clearInterval(obj.timer);
+
+			obj.timer = setInterval(function(){
+				//判断是否停止定时器
+				var flag = true;  //true：停止定时器  
+				for(var attr in json){
+					var current = parseInt(getStyle(obj,attr));
+					
+					var step = (json[attr] - current) / 10;
+					step = step > 0 ? Math.ceil(step) : Math.floor(step);
+					
+					obj.style[attr] = current + step + "px";
+
+					if (current != json[attr]) { //只要其中一个没有满足，就不应该停止定时器
+						flag = false;
+					}
+				}
+				if (flag) {
+					clearInterval(obj.timer); 
+				}
+			},30);
+		}
+
+		window.onload = function(){
+			var btn200 = $("btn200");
+			var btn400 = $("btn400");
+			var box = $("box");
+
+			btn200.onclick = function(){
+				animate(box,{width:200, top:800, left:200});
+			}
+			btn400.onclick = function(){
+				animate(box,{top:500});
+			}
+		}
+	</script>
+</head>
+<body>
+	<button id="btn200">200</button>
+	<button id="btn400">400</button>
+	<div id="box"></div>
+</body>
+</html>

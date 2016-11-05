@@ -30,6 +30,13 @@ Contents <a id="contents"></a>
 * [24_动画原理](#Demo_24)
 * [25_轮播图(利用动画原理)](#Demo_25)
 * [26_缓动动画原理](#Demo_26)
+* [27_封装运动框架基本函数(单个属性)](#Demo_27)
+* [28_封装运动框架基本函数(多个属性)](#Demo_28)
+* [29_封装运动框架基本函数(添加停止定时器)](#Demo_29)
+* [30_封装运动框架基本函数(回调函数)](#Demo_30)
+* [31_仿360开机效果](#Demo_31)
+* [32_封装运动框架基本函数(透明度&zIndex)](#Demo_32)
+
 
 01_skinTransform <a id="Demo_01"></a>
 ---------------------
@@ -1464,6 +1471,310 @@ console.log(Math.floor(-1.3)) //-2
 console.log(Math.round(1.01)) //1
 console.log(Math.round(1.5))  //2
 ```
+
+
+27_封装运动框架基本函数(单个属性)  <a id="Demo_27"></a>
+---------------------
+
+### 逻辑
+
+>1、获取当前值；
+>
+>2、目标值，计算步长；
+`var step = (target - current) /10;`
+>
+>3、动画；`obj.style[attr] = current + step + "px";`
+
+
+* 获取盒子的属性（值+px）
+
+```javascript
+/*
+ * 获得某盒子对象的样式属性值
+ *  obj：对象
+ * attr：样式属性
+ *
+ * 返回传递过来的某个属性(值+px)
+ */
+function getStyle(obj,attr){
+  	if (obj.currentStyle) {
+  		  return obj.currentStyle[attr];  //ie 等
+  	}else{
+  		  return window.getComputedStyle(obj,null)[attr];  //w3c 浏览器
+  	}
+}
+```
+
+* 封装单个属性的运动框架：
+
+```javascript
+/*
+ * 封装单个属性的运动框架
+ *     obj：运动对象
+ *    attr：属性     "left" / "top"
+ *  target：目标位置
+ */
+function animate(obj,attr,target){
+  	clearInterval(obj.timer);
+  	obj.timer = setInterval(function(){
+    		//动画原理：盒子本身的样式 + 步长
+    		var current = parseInt(getStyle(obj,attr));  //属性值left/top
+    		var step = (target - current) / 10;          //计算步长：(剩余距离/10)
+    		step = step > 0 ? Math.ceil(step) : Math.floor(step);
+
+    		obj.style[attr] = current + step + "px";
+    		if (current == target) {
+    			  clearInterval(obj.timer);
+    		}
+  	},30);
+}
+```
+
+
+28_封装运动框架基本函数(多个属性)  <a id="Demo_28"></a>
+---------------------
+
+### 逻辑
+
+>1、封装多个属性：多个属性使用json对象作为参数；
+>
+>2、遍历json对象，获取相应的属性值；
+进行相应的步长计算；
+>
+
+* 封装多个属性的运动框架：
+
+```javascript
+/*
+ * 封装多个属性的运动框架
+ *     obj：运动对象
+ *    json： {k:v,k:v,.....}   eg：{top:500}，{width: 200, top: 800,left: 200}
+ */
+function animate(obj,json){
+	clearInterval(obj.timer);
+	obj.timer = setInterval(function(){
+  		for (var attr in json) { //遍历json，获取所有属性key，所有属性值，进行动画处理
+    			var current = parseInt(getStyle(obj,attr));
+    			//目标位置：json[attr] 即为：属性值
+    			var step = (json[attr] - current) /10;
+    			step = step > 0 ? Math.ceil(step) : Math.floor(step);
+    			obj.style[attr] = current + step + "px";
+  		}
+	},30);
+}
+```
+
+### 技术思想
+
+* json的遍历
+
+```javascript
+for (var attr in json) {
+}
+```
+
+`in` 遍历 后面只能是对象类型。（json对象、数组对象）
+
+
+29_封装运动框架基本函数(添加停止定时器)  <a id="Demo_29"></a>
+---------------------
+
+### 逻辑
+
+>1、添加布尔类型标识；
+只有有一个属性没有达到目标值，标识即为false;
+>
+>2、当标识为true时，停止定时器；
+>
+
+* 封装多个属性的运动框架，添加停止定时器：
+
+```javascript
+/*
+ * 封装多个属性的运动框架
+ *     obj：运动对象
+ *    json： {k:v,k:v,.....}   eg：{top:500}，{width: 200, top: 800,left: 200}
+ */
+function animate(obj,json){
+  	clearInterval(obj.timer);
+
+  	obj.timer = setInterval(function(){
+    		//判断是否停止定时器
+    		var flag = true;  //true：停止定时器  
+    		for(var attr in json){
+      			var current = parseInt(getStyle(obj,attr));
+
+      			var step = (json[attr] - current) / 10;
+      			step = step > 0 ? Math.ceil(step) : Math.floor(step);
+
+      			obj.style[attr] = current + step + "px";
+
+      			if (current != json[attr]) { //只要其中一个没有满足，就不应该停止定时器
+      				  flag = false;
+      			}
+    		}
+    		if (flag) {
+    			  clearInterval(obj.timer);
+    		}
+  	},30);
+}
+```
+
+
+30_封装运动框架基本函数(回调函数)  <a id="Demo_30"></a>
+---------------------
+
+### 逻辑
+
+>1、添加回调函数参数；
+>
+>2、当停止计时器时，即为动画执行完毕，执行回调函数；
+>
+
+* 添加回调函数参数：
+
+```javascript
+/*
+ * 封装多个属性的运动框架
+ *     obj：运动对象
+ *    json： {k:v,k:v,.....}   eg：{top:500}，{width: 200, top: 800,left: 200}
+ *      fn：回调函数。 动画结束，执行回调函数。
+ */
+function animate(obj,json,fn){
+  	clearInterval(obj.timer);
+
+  	obj.timer = setInterval(function(){
+    		var flag = true;
+
+    		for (var attr in json) {
+      			var current = parseInt(getStyle(obj,attr));
+      			var step = (json[attr] - current) / 10;
+      			step = step > 0 ? Math.ceil(step) : Math.floor(step);
+
+      			obj.style[attr] = current + step + "px";
+
+      			if (current != json[attr]) {
+      				  flag = false;
+      			}
+    		}
+    		if (flag) {
+      			clearInterval(obj.timer);
+
+      			if (fn) { //动画结束，执行回调函数
+      				  fn();
+      			}
+    		}
+  	},30);
+}
+```
+
+
+31_仿360开机效果  <a id="Demo_31"></a>
+---------------------
+
+### 逻辑
+
+>1、利用回调函数参数，当一个动画结束，执行另一个动画；
+>
+
+```javascript
+closeAd.onclick = function(){
+  	animate(b,{height: 0}, function(){
+  		  animate(b.parentNode, {width:0});
+  	});
+}
+```
+
+
+32_封装运动框架基本函数(透明度&zIndex)  <a id="Demo_32"></a>
+---------------------
+
+### 逻辑
+
+>1、获取当前值，判断是否为透明度opacity，如果是透明度属性，进行处理：
+`current = Math.round(parseInt(getStyle(obj,attr)*100)) || 0;`
+>
+>2、计算步长；
+`var step = (json[attr] - current) /10;`
+>
+>3、获取盒子属性：
+判断是否是opacity，进行浏览器兼容性判断（ "opacity" in obj.style ）；
+判断是否是zIndex，obj.style.zIndex = json[attr] ；
+其他，obj.style[attr] = current + step + "px" ；
+>
+>
+
+
+```javascript
+/*
+ * 封装多个属性的运动框架
+ *     obj：运动对象
+ *    json： {k:v,k:v,.....}   eg：{top:500}，{width: 200, top: 800,left: 200}
+ *      fn：回调函数。 动画结束，执行回调函数。
+ */
+function animate(obj,json,fn){
+  	clearInterval(obj.timer);
+
+  	obj.timer = setInterval(function(){
+    		var flag = true;
+    		for (var attr in json) {
+      			//1.获取当前值
+      			var current = 0;
+      			if (attr == "opacity") {
+      				  current = Math.round(parseInt(getStyle(obj,attr)*100)) || 0;
+      			}else{
+      			  	current = parseInt(getStyle(obj,attr));  
+      			}
+      			//2.计算步长（遍历json获取目标值）
+      			var step = (json[attr] - current) /10;
+      			step = step > 0 ? Math.ceil(step) : Math.floor(step);
+
+      			if (attr == "opacity") {
+
+      				if ("opacity" in obj.style) {  //判断浏览器是否支持opacity
+      					  obj.style.opacity = (current + step) /100;
+      				}else{
+      					  obj.style.filter = "alpha(opacity = " + (current + step)*10 + ")";
+      				}
+
+      			}else if (attr == "zIndex") {
+      				  obj.style.zIndex = json[attr];
+      			}else{
+      				  obj.style[attr] = current + step + "px";
+      			}
+
+      			if (current != json[attr]) {
+      				  flag = false;
+      			}
+    		}
+    		if (flag) {
+      			clearInterval(obj.timer);
+      			if (fn) {
+      				  fn();
+      			}
+    		}
+  	},30);
+}
+```
+
+透明度需要扩大100倍，以防止取整的时候，无法准确计算透明度步长；
+
+
+### 技术思想
+
+* 透明度浏览器兼容性判断：
+
+```javascript
+if ("opacity" in obj.style) {  //判断浏览器是否支持opacity
+	  obj.style.opacity = 0.5;
+}else{
+	  obj.style.filter = "alpha(opacity = 50)";
+}
+```
+
+* zIndex
+
+`zIndex`不使用缓动增加，直接设置到目标值：`obj.style.zIndex = json[attr];` 。
 
 
 
