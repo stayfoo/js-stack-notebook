@@ -36,6 +36,9 @@ Contents <a id="contents"></a>
 * [30_封装运动框架基本函数(回调函数)](#Demo_30)
 * [31_仿360开机效果](#Demo_31)
 * [32_封装运动框架基本函数(透明度&zIndex)](#Demo_32)
+* [33_手风琴效果](#Demo_33)
+* [34_仿网易轮播图](#Demo_34)
+* [35_旋转木马轮播图](#Demo_35)
 
 
 01_skinTransform <a id="Demo_01"></a>
@@ -1777,6 +1780,95 @@ if ("opacity" in obj.style) {  //判断浏览器是否支持opacity
 `zIndex`不使用缓动增加，直接设置到目标值：`obj.style.zIndex = json[attr];` 。
 
 
+33_手风琴效果  <a id="Demo_33"></a>
+---------------------
+
+### 逻辑
+
+>1、div-ul-li布局，正常状态：五个li，五张图片，每个宽度为240，240 * 5 = 1200；
+>
+>2、鼠标滑过图片：100*4 + 800 = 1200 ；
+>
+>3、使用动画框架，动态改变li的width；
+鼠标onmouseover时：把所有li的width动画改为100，onmouseover的li的width改为800；
+鼠标onmouseout时：把所有li的width动画改为240；
+>
+
+```javascript
+window.onload = function(){
+  	var box = document.getElementsByTagName("div")[0];
+  	var lis = box.children[0].children;
+
+  	for (var i = 0; i < lis.length; i++) {
+    		lis[i].style.backgroundImage = "url(images/"+(i+1)+".jpg";
+
+    		lis[i].onmouseover = function(){  //100*4 + 800 = 1200
+    			for (var j = 0; j < lis.length; j++) {
+    				  animate(lis[j],{width:100});  
+    			}
+    			animate(this,{width:800});
+  		}
+  		lis[i].onmouseout = function(){  //240 * 5 = 1200
+    			for (var j = 0; j < lis.length; j++) {
+    				  animate(lis[j],{width:240});
+    			}
+  		}
+  	}
+}
+```
+
+
+34_仿网易轮播图  <a id="Demo_34"></a>
+---------------------
+
+### 逻辑
+
+>1、动态生成焦点span，设置span的样式类；
+0span：上一张；
+1-5span：中间的焦点；
+6span：下一张；
+>
+>2、默认初始显示第一张，其他的图片都堆叠在显示区域的右边（设置left为大盒子的宽度）；
+>
+>3、对焦点监听点击事件；
+判断三种对象：上一张、中间的焦点、下一张，进行不同的操作；
+>
+>4、点击下一张：动画把当前图left设置为-scrollWidth，即为显示的左边；
+下一张要显示的图.style.left设置为scrollWidth，即为显示的右边，然后动画把他显示成left:0。
+>
+
+
+```javascript
+/**
+ *  自动下一张
+ */
+function autoplay(){
+  	animate(imgs[iNow],{left: -scrollWidth});
+
+  	++iNow > imgs.length -1 ? iNow = 0 : iNow;
+  	imgs[iNow].style.left = scrollWidth + "px";
+
+  	animate(imgs[iNow],{left: 0});
+
+  	setSquare(); //设置焦点样式
+}
+```
+
+
+35_旋转木马轮播图  <a id="Demo_35"></a>
+---------------------
+
+### 逻辑
+
+
+### 技术思想
+
+|||
+|----|----|
+|`push()`   |后面推进去,可向数组的末尾添加一个或多个元素，并返回新的长度。|
+|`unshift()`|从数组的前面放入,可向数组的开头添加一个或更多元素，并返回新的长度|
+|`pop()`    |删除最后一个元素,返回最后一个值|
+|`shift()`  |删除第一个元素,把数组的第一个元素从其中删除，并返回第一个元素的值|
 
 
 ===============================================================

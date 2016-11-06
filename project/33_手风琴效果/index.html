@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="utf-8">
+	<title>手风琴效果</title>
+	<style type="text/css">
+		ul {list-style: none;}
+		* {margin: 0;padding: 0;}
+		div {
+			width: 1150px;
+			height: 400px;
+			margin: 50px auto;
+			border: 1px solid red;
+			overflow: hidden;
+		}
+		div li {
+			width: 240px;
+			height: 400px;
+			float: left;
+		}
+		div ul {
+			width: 1300px;
+		}
+	</style>
+	<script src="animate.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var box = document.getElementsByTagName("div")[0];
+			var lis = box.children[0].children;
+
+			for (var i = 0; i < lis.length; i++) {
+				lis[i].style.backgroundImage = "url(images/"+(i+1)+".jpg";
+
+				lis[i].onmouseover = function(){  //100*4 + 800 = 1200 
+					for (var j = 0; j < lis.length; j++) {
+						animate(lis[j],{width:100});  
+					}
+					animate(this,{width:800});
+				}
+				lis[i].onmouseout = function(){  //240 * 5 = 1200
+					for (var j = 0; j < lis.length; j++) {
+						animate(lis[j],{width:240});
+					}
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div>
+		<ul>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</body>
+</html>
