@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		*{margin: 0; padding: 0;}
+		ul{list-style: none;}
+		.box {
+			width: 350px;
+			height: 300px;
+			border: 1px solid #ccc;
+			margin: 100px auto;
+			overflow: hidden;
+		}
+		.mt span {
+			display: inline-block;
+			width: 80px;
+			height: 30px;
+			background-color: pink;
+			text-align: center;
+			line-height: 30px;
+			cursor: pointer;
+		}
+		.mt span.current {
+			background-color: purple;
+		}
+		.mb li {
+			width: 100%;
+			height: 270px;
+			background-color: purple;
+			display: none;
+		}
+		.mb li.show {
+			display: block;
+		}
+	</style>
+	<script type="text/javascript">
+		function $(id) { return document.getElementById(id); }
+
+		window.onload = function(){
+			// 要想多个盒子不相互影响，我们可以通过id 给他们分开 
+			// 封装tab栏切换函数 
+			function tab(obj){
+				var target = document.getElementById(obj);
+				var spans = target.getElementsByTagName("span");
+				var lis = target.getElementsByTagName("li");
+
+				for (var i = 0; i < spans.length; i++) 
+				{
+					// spans[i].index = i;
+					spans[i].onmouseover= function(num){
+						return function(){
+							for (var j = 0; j < spans.length; j++) {
+								spans[j].className = "";
+								lis[j].className = "";
+							}
+							spans[num].className = "current";
+							lis[num].className = "show";
+						}
+					}(i);  
+					//var fun = function(){}; fun();   
+					//function(){}();       //立即执行 可以省去设置index
+
+				}
+			}
+
+			tab("one");
+			tab("two");
+			tab("three");
+		}
+	</script>
+</head>
+<body>
+	<div class="box" id="one">
+		<div class="mt">
+			<span class="current">新闻</span>
+			<span>体育</span>
+			<span>娱乐</span>
+			<span>八卦</span>
+		</div>
+		<div class="mb">
+			<ul>
+				<li class="show">新闻模块</li>
+				<li>体育模块</li>
+				<li>娱乐模块</li>
+				<li>八卦模块</li>
+			</ul>
+		</div>
+	</div>
+	<div class="box" id="two">
+		<div class="mt">
+			<span class="current">新闻</span>
+			<span>体育</span>
+			<span>娱乐</span>
+			<span>八卦</span>
+		</div>
+		<div class="mb">
+			<ul>
+				<li class="show">新闻模块</li>
+				<li>体育模块</li>
+				<li>娱乐模块</li>
+				<li>八卦模块</li>
+			</ul>
+		</div>
+	</div>
+	<div class="box" id="three">
+		<div class="mt">
+			<span class="current">新闻</span>
+			<span>体育</span>
+			<span>娱乐</span>
+			<span>八卦</span>
+		</div>
+		<div class="mb">
+			<ul>
+				<li class="show">新闻模块</li>
+				<li>体育模块</li>
+				<li>娱乐模块</li>
+				<li>八卦模块</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

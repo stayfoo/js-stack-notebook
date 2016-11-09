@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="utf-8">
+	<title>屏幕缩放事件</title>
+	<script type="text/javascript">
+		window.onload = function () {
+			//屏幕缩放事件
+			var num = 0;
+			var demo = document.getElementById("demo");
+			window.onresize = function(){ //ie8 等浏览器  每触发一次 ， 执行两次 
+				num++;
+				// 得到当前的屏幕宽度
+				demo.innerHTML = window.innerWidth || document.documentElement.clientWidth;
+				console.log(num);
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="demo"></div>
+</body>
+</html>

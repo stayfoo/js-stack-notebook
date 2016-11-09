@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="utf-8">
+	<title>屏幕缩放事件（闭包版本的函数节流）</title>
+	<script type="text/javascript">
+		window.onload = function () {
+			//屏幕缩放事件
+			var num = 0;
+			var demo = document.getElementById("demo");
+
+			window.onresize = throttle(function(){ //ie8 等浏览器  每触发一次 ， 执行两次 
+				// 得到当前的屏幕宽度
+				demo.innerHTML = window.innerWidth || document.documentElement.clientWidth;
+				num++;
+				console.log(num);
+			}, 300);
+
+			
+			//闭包 节流
+			function throttle(fn,delay){ //闭包  节流
+				var timer = null;
+				return function(){
+					clearTimeout(timer);
+					timer = setTimeout(fn,delay);
+				}
+			}
+
+
+		}
+	</script>
+</head>
+<body>
+	<div id="demo"></div>
+</body>
+</html>
