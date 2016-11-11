@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="utf-8">
+	<title>下拉菜单</title>
+	<style type="text/css">
+		*{padding: 0;margin: 0;list-style: none;}
+		.all{
+			width: 330px;
+			height: 30px;
+			background:url(images/bg.jpg) no-repeat;
+			margin: 100px auto;
+			line-height: 30px;
+			text-align:center;
+			padding-left: 10px;
+			margin-bottom: 0;
+		}
+		.all ul li{
+			width: 100px;
+			height: 30px;
+			background:url(images/libg.jpg);
+			float: left;
+			margin-right: 10px;
+			position: relative;
+			cursor: pointer;
+		}
+		.all ul ul{
+			position: absolute;
+			left: 0;
+			top: 30px;
+			display: none;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			//获取对象   遍历对象操作    显示模块  隐藏模块
+
+			function List(id){  
+				this.id = document.getElementById(id);    //取 id 值
+				this.lis = this.id.children[0].children;  //获取一级菜单所有的li
+			}
+
+			//init 初始化
+			List.prototype.init = function(){     // 遍历所有的li 显示和隐藏
+				var that = this;   //that： List对象
+				for (var i = 0; i < this.lis.length; i++) {
+					this.lis[i].index = i;     //this： li对象
+					this.lis[i].onmouseover = function(){
+						that.show(this.children[0]);     //显示出来
+					}
+					this.lis[i].onmouseout = function(){
+						that.hide(this.children[0]);     //隐藏起来 
+					}
+				}
+			}
+
+			//显示模块
+			List.prototype.show = function(obj){
+				obj.style.display = "block";
+			}
+			//隐藏模块
+			List.prototype.hide = function(obj){
+				obj.style.display = "none";
+			}
+
+			var list = new List("list");  //实例化了一个对象 叫 list
+			list.init();
+		}
+	</script>
+</head>
+<body>
+	<div class="all" id="list">
+		<ul>
+			<li>一级菜单
+				<ul>
+					<li>二级菜单</li>
+					<li>二级菜单</li>
+					<li>二级菜单</li>
+				</ul>
+			</li>
+			<li>一级菜单
+				<ul>
+					<li>二级菜单</li>
+					<li>二级菜单</li>
+					<li>二级菜单</li>
+				</ul>
+			</li>
+			<li>一级菜单
+				<ul>
+					<li>二级菜单</li>
+					<li>二级菜单</li>
+					<li>二级菜单</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
