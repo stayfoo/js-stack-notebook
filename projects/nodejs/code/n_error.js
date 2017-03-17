@@ -1,3 +1,12 @@
+//  Created by mengyueping 
+//  Copyright © 2017年 www.mengyueping.com . All rights reserved.
+//
+/************************************************
+ *                                               *
+ *            Node.js  API  Absorbed             *
+ *                                               *
+ ************************************************/
+
 /**
  * 此处的 console 是 Node 平台提供的。
  * 
@@ -20,7 +29,12 @@
 // demo_13();
 // demo_14();
 // demo_15();
-demo_16();
+// demo_16();
+// demo_17();
+// demo_18()
+// demo_19();
+demo_20();
+
 
 
 function demo_01(params) {
@@ -315,12 +329,90 @@ function demo_16(params) {
 
 function demo_17(params) {
 
-    console.log('main');
+    console.time('main');
     // 耗费时间 （阻塞情况） 1000ms
     setTimeout(() => {
-        var data = get('http://www.baidu.com/1.jpg');
-        console.log(data);
+        // var data = get('http://www.baidu.com/1.jpg');
+        // console.log(data);
     }, 0);
     console.log('main');
     console.log('完成执行了');
+}
+
+function demo_18(params) {
+    console.time('main');
+    get('http://www.baidu.com/1.jpg', function(data) {
+
+    });
+    console.timeEnd('main');
+}
+
+
+function demo_19(params) {
+    console.log('demo_19');
+
+
+    //如果函数需要回调参数， 一定是在参数的最后出现
+
+    // function getFileAsync(path, callback) {
+    //     if (错误) {
+    //         callback(new Error('xxx 错误'));
+    //     } else {
+    //         callback(null, data);
+    //     }
+    // }
+
+    // 错误优先的回调函数
+
+
+    function isEvenOrOdd(number, callback) {
+        if (typeof number === 'number') {
+            if (number % 2) {
+                //奇数
+                callback(null, '当前传入的是奇数');
+            } else {
+                callback(null, '当前传入的是偶数');
+            }
+        } else {
+            throw new Error('你传入的不是数字');
+            callback(new Error('你传入的不是数字'));
+        }
+    }
+
+    //约定将错误信息作为回调的第一个参数
+    isEvenOrOdd(10, (error, data) => {
+        if (error) throw error;
+        console.log(data);
+    });
+
+    isEvenOrOdd(11, (error, data) => {
+        if (error) throw error;
+        console.log(data);
+    });
+
+    isEvenOrOdd('asda', (error, data) => {
+        if (error) throw error;
+        console.log(data);
+    });
+}
+
+function demo_20(params) {
+    console.log('demo_20');
+
+    var a = 10;
+    var b = a + 10;
+    console.log(b);
+
+
+    var fs = require('fs');
+    //耗时
+    fs.readFile('./frames/test.d.ts', 'utf8', (error, data) => {
+        if (error) {
+            throw error;
+            console.log(data);
+        } else {
+            console.log(data);
+        }
+    });
+
 }
