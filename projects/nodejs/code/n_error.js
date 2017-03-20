@@ -33,11 +33,14 @@
 // demo_17();
 // demo_18()
 // demo_19();
-demo_20();
+// demo_20();
 
 
 
 function demo_01(params) {
+    console.log('demo_01');
+
+
     var a = 1;
     console.log(a); //1
     console.error(new Error('error')); //[Error: error]
@@ -45,6 +48,9 @@ function demo_01(params) {
 
 
 function demo_02(params) {
+    console.log('demo_02');
+
+
     var argv = process.argv;
     console.log(argv);
     /*
@@ -55,6 +61,9 @@ function demo_02(params) {
 
 
 function demo_03(params) {
+    console.log('demo_03');
+
+
     var argvs = process.argv.slice(2);
 
     switch (argvs[0]) {
@@ -339,6 +348,7 @@ function demo_17(params) {
     console.log('完成执行了');
 }
 
+
 function demo_18(params) {
     console.time('main');
     get('http://www.baidu.com/1.jpg', function(data) {
@@ -395,6 +405,7 @@ function demo_19(params) {
         console.log(data);
     });
 }
+
 
 function demo_20(params) {
     console.log('demo_20');
