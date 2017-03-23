@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p id="p1" name="111">www.mengyueping.com_1</p>
+    <p class="p2" name="122">www.mengyueping.com_2</p>
+    <p name="313">www.mengyueping.com_3</p>
+    <p class="p4">www.mengyueping.com_4</p>
+    <div id="div1">
+        <p id="div_p1">www.mengyueping.com_dp1</p>
+        <p id="div_p2">www.mengyueping.com_dp2</p>
+        <span>网站维护</span>
+        <p id="div_p3">www.mengyueping.com_dp3</p>
+        <p>改版</p>
+        <p>更新</p>
+    </div>
+
+
+
+    <!--
+        1. 什么是jQuery？
+            jQuery是一个对原生JS封装的类库，使用JQ来开发，会加快速度和高效，
+            jQuery封装的时候，考虑到了一些js兼容性问题。
+            jQuery1.* ： 封装的时候，兼容ie低版本（1.7）
+            jQuery2.* ： 没有兼容ie低版本。
+            JQuery可以在线使用，也可以下载下来放到本地。
+    -->
+    <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        /**
+         * 2. jQuery 支持的选择器 
+         * 
+         * jQuery查找元素，都是通过$(),这个函数进行查找的
+         *     语法：
+         *          $("选择器"); 而且获得的元素，即使有一个，也是在数组中
+         * 
+         *      支持的选择器类型：
+         *                  基本选择器
+         *                  元素选择器
+         *                  类选择器
+         *                  id 选择器
+         *                  * 选择器（所有的元素）
+         *                  群组选择器
+         * 
+         * 通过JQuery的方法获取出来的是jQuery的操作对象（数组）
+         * 
+         *
+         */ 
+        console.log("--基本选择器--------------------");
+         var p1=$("#p1");
+         console.log(p1);     //id选择器
+                /*
+                 *  [p#p1]
+                 *     0: p#p1
+                 *     length: 1
+                 *     __proto__: Object(0)
+                 */   
+         console.log($("p"));   //标签选择器
+                /**
+                 * [p#p1, p.p2, p, p.p4, p#div_p1, p#div_p2, p, p, prevObject: r.fn.init(1)]
+                 */
+         console.log($(".p2"));     //类选择器
+         console.log($("body *"));  //*选择器
+         console.log($(".p2,#p1")); //群组选择器
+         
+         /**
+          * 2.1 层次选择器
+          *         后代选择器
+          *         父子选择器
+          *         相邻兄弟选择器
+          *         兄弟选择器
+          * 兄弟选择器，只能是该元素后面的元素
+          */
+          console.log("--层次选择器--------------------");
+          console.log($("#div1 p"));    //后代选择器，指定后代标签类型是p标签
+          console.log($("#div1>p"));    
+          console.log($("#div_p2+"));   //相邻兄弟选择器，只能是该元素后面的元素
+          console.log($("#div_p2~p"));  //兄弟选择器，指定标签类型是p标签，只能是该元素后面的元素
+
+
+          /**
+           * 2.2 属性选择器
+           *    [属性名]           ：选取带有该属性名的元素
+           *    [属性名="属性值"]   ：选取对应属性名，并且属性值是我们写的属性值的元素
+           *    [属性名*="属性值"]  ：选取只要包含该属性值的元素（没必要是完整的单词）
+           * 
+           *    JQuery新增：
+           *    [属性名^="属性值"]  ：选取元素的属性值必须是以我们设置的属性值开头的
+           *    [属性名$="属性值"]  ：选取元素的属性值必须是以我们设置的属性值结尾的
+           *    [属性名!="属性值"]  ：选取属性值不是我们设置的值的元素
+           *    [属性选择器][属性选择器]...[属性选择器] ：复合属性选择器，选取的元素，必须同时满足上面的条件
+           */       
+           console.log("--属性选择器--------------------");   
+           console.log($("[name]"));
+           console.log($("[name='111']"));
+           console.log($("[name*='1']"));
+           
+           console.log($("[name^='1']"));
+           console.log($("[name$='1']"));
+           console.log($("[name!='111']"));    //选取所有属性值不为1的元素
+           console.log($("[name!='122'][name]")); //复合选择器
+
+           /**
+            * 2.3 伪类选择器
+            * 
+            * 
+            */
+
+         
+        // 3. jQuery 对元素的一些操作
+        // 4. jQuery 设置动画
+        
+    </script>
+</body>
+</html>
