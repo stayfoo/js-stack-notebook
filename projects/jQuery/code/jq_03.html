@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p></p>
+    <p></p>
+    <p></p>
+    <input type="text"/>
+    <input type="button" id="setValue" value="赋值">
+    
+
+    <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        /**
+         * 4. jQuery 操作元素的内容
+         * 
+         * 4.1 html()
+         *    等价于： innerHtml
+         *  html("写入的内容"/函数)
+         * 
+         * 
+         */ 
+         $("p").html("😄");
+         $("p").html("<span>写入结构</span>");
+         //获取标签中的内容，只会获取第一个元素的内容
+         console.log($("p").eq(1).html());
+         //通过函数写入内容
+         $("p").html((i,v) => {
+             console.log(i,v);
+             if(i==2){
+                 return "函数写入";
+             }
+         });
+
+         /**
+          * 4.2 text() 
+          *     等价于 innerText
+          */
+          $("p").eq(0).text("<a>超链接</a>");
+          //获取文本内容，只获取文本内容
+          console.log($("p").eq(1).text());
+          $("p").eq(2).text((i,v) => {
+              console.log(i,v);
+              //想要设置新值，就得使用return，把新值返回
+          });
+
+          /**
+           * 4.3 val()
+           *    val("赋值的内容"/函数)
+           */
+                //先给按钮添加一个点击事件
+           $("#setValue").click(() => {
+                //给输入框输入一个内容
+                $(":text").val("Hello");
+                //通过函数赋值
+                $(":text").val((i,v) => {
+                    return "World";
+                });
+                //获取文本框内容
+                console.log($(":text").val());
+           });
+
+    </script>
+</body>
+</html>

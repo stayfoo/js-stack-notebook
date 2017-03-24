@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        #div1 {
+            width     : 100px;
+            height    : 100px;
+            background: red;
+        }
+        .add {
+            transition: 1s all;
+        }
+        .animateStart {
+            transform : rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <p id="p1">www.mengyueping.com</p>
+    <div id="div1"></div>
+    <input type="button" value="开始动画">
+
+    
+    <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        /**
+         * 5. jQuery 操作元素的属性
+         * 
+         * 5.1 添加自定义属性
+         *  attr()   ：该函数可以自定义属性
+         *      语法：attr(属性名,属性值/函数)
+         *      给一个元素添加一个自定义属性
+         * 
+         */
+        $("#p1").attr("name","add");
+        $("#p1").attr("name","aaa"); //更改
+        $("#p1").attr({
+            gender: "girl",
+            height: "170",
+        });
+        $("#p1").attr("weight", () => {
+            return "90";
+        });
+
+        /**
+         * 5.2 删除自定义属性
+         */
+         $("#p1").removeAttr("weight");
+
+        /**
+         * 5.3 修改属性值
+         *  attr()
+         *  prop() ：只能操作元素自带的属性
+         */
+        $("#p1").attr("height","171");
+        $("#p1").prop("address","BeiJing");
+        $("#p1").prop("class","");
+
+        /**
+         * 5.4 元素属性值的获取
+         *      attr("属性名");
+         *      prop("属性名");
+         */
+        console.log($("#p1").attr("gender"));
+
+
+        //使用：点击一个按钮，让div旋转180deg（结合动画），通过添加类名的形式，完成动画
+        $(":button").click(() => {
+            //让div1发生旋转动画
+            $("#div1").addClass("add").addClass("animateStart");
+        });
+        
+
+    </script>
+</body>
+</html>
