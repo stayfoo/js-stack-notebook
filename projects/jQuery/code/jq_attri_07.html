@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            border: 10px solid black;
+            padding: 50px;
+            margin: 30px;
+            position: relative;
+            left: 300px;
+            top: 1000px;
+        }
+        #box {
+            width: 400px;
+            height: 400px;
+            background: green;
+            position: relative;
+            padding: 20px;
+            border: 10px solid black;
+            margin: 100px;
+        }
+        #div2 {
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            border: 5px solid brown;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1">www.mengyueping.com</div>
+    <div id="box">
+        <div id="div2"></div>
+    </div>
+
+
+    <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        /**
+         * 8. jQuery 常用元素的属性
+         * 
+         * 8.1 关于元素宽度的属性的函数：
+         *      width()             ：div的内容的宽度
+         *      innerWidth()        ：内容宽度+padding（左右）
+         *      outerWidth()        ：内容宽度+padding（左右）+border（左右）
+         *      outerWidth(true)    ：参数的意思就是是否算上 margin
+         * 
+         * 8.2 关于元素高度的属性的函数：
+         *      height()            ：div的内容的高度
+         *      innerHeight()       ：内容高度+padding（上下）
+         *      outerHeight()       ：内容高度+padding（上下）+border（上下）
+         *      outerHeight(true)   ：参数意思就是是否算上 margin
+         *      
+         */ 
+         console.log($("#div1").width(),$("#div1").height());
+         console.log($("#div1").innerWidth(),$("#div1").innerHeight());
+         console.log($("#div1").outerWidth(),$("#div1").outerHeight());
+         console.log($("#div1").outerWidth(true),$("#div1").outerHeight(true));
+
+
+         /**
+          * 8.3 offset()
+          *     当前元素基于页面的位置.
+          *     获取元素到页面顶部的距离 ： $("#div1").offset().top
+          *     获取元素到页面左边的距离 ： $("#div1").offset().left
+          */
+          console.log($("#div1").offset());
+          console.log($("#div1").offset().top);
+          console.log($("#div1").offset().left);
+          //设置offset的值
+          $("#div1").offset({
+              left:"1000",
+              top:"100"
+          });
+
+          /**
+           * 8.4 position() 
+           *    当前元素距离最近的定位父级之间的距离
+           *    当没有定位父级的时候，就是元素到页面左上角的距离
+           * 
+           *    注意：不建议对position()进行赋值操作
+           *    
+           */
+           console.log($("#div2").position());
+           console.log($("#box").position());
+
+           /**
+            * 8.5 滚动条位置
+            *   scrollTop()  ：获取和设置元素中垂直滚动条的位置
+            *   scrollLeft() ：获取和设置元素中水平滚动条的位置
+            *  对元素使用这两个属性的时候，保证该元素存在滚动条
+            *
+            *   $("body")  ：jquery获取body对象，jquery对象
+            *   document.body原生body对象，是不能直接调用jquery中的函数的，必须要进行转化.
+            *   $(原生对象) ：把原生对象转化成jquery对象
+            */
+            $("#box").click((event) => {
+                console.log($("body").scrollLeft());
+                console.log($("body").scrollTop());
+                
+                //阻止事件冒泡
+                //方案1：只是阻止冒泡
+                // event.stopPropagation();
+                //方案2：不仅可以取消默认操作，而且可以阻止事件冒泡
+                return false;
+            });
+
+            //给滚动条设置值
+            $(document).click(() => {
+                //设置滚动条回到左上角
+                $("body").scrollLeft(0);
+                $("body").scrollTop(0);
+            });
+    </script>
+</body>
+</html>

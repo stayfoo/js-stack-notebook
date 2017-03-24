@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #one {
+            width: 100px;
+            height: 100px;
+            background: deepskyblue;
+        }
+        #two {
+            width: 100px;
+            height: 100px;
+            background: greenyellow;
+        }
+        #three {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+        form {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <img src="" alt=""/>
+    <div id="one"></div>
+    <div id="two"></div>
+    <div id="three"></div>
+
+    <form action="###">
+        <select name="menu" id="menu">
+            <option value="egg">鸡蛋</option>
+            <option value="apple">苹果</option>
+            <option value="pc">电脑</option>
+        </select>
+        用户名： <input type="text" id="user"/>
+    </form>
+
+    <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.onload = function(){
+             //onload触发时机是：不仅要等待页面的元素全部加载完成，
+             //而且要等待，引入的外部文件加载成功，而且等待图片完全显示，该事件的执行函数，才会执行
+             console.log("window.onload，页面加载完毕....");
+         }
+
+        /**
+         * 9. jquery 事件函数
+         * 
+         * 9.1 $(document).ready() ：加载事件开始.
+         *      只要DOM结构完成（页面的元素，被加载之后，形成DOM树之后，就会触发）
+         *      时间早于window.onload 
+         * 
+         *  js中事件有冒泡，jquery中也有。
+         * 
+         * 
+         *  jquery中给事件绑定执行函数的两种方式：
+         *      语法1：jquery对象.事件名(函数/匿名函数);
+         *      语法2：jquery对象.on("事件名1 事件名2 ...","selector(可以省略)",执行函数);
+         *  通过jquery给事件绑定执行函数的两个方案，每次调用的时候都会绑定，后面的函数不会覆盖前面的函数.  
+         * 
+         * 
+         *  jquery解除给事件绑定的函数：
+         *      jquery对象.off("事件名称","Selector,可以省略",解除那个函数);
+         *          如果参数只写一个参数名称，会把该事件绑定的全部执行函数都解除绑定.
+         *          写成匿名函数的，只能通过"事件名称"，来解除绑定，自己写的函数，可以明确指定，解除绑定
+         */
+         $(document).ready(() => {
+             console.log("$(document).ready，DOM加载完毕....");
+         });
+
+         /**
+          * 9.2 click 单击事件
+          *   
+          */
+          $("#one").click(clickFunc);
+          function clickFunc(event){
+              console.log("你点击了one 一下",event.clientX,event.clientY);
+          }
+          $("#two").on("click",() => {
+              console.log("点击了two");
+          });
+          $("#one").click(() => {
+              console.log("点击了one");
+          });
+          $("#one").off("click",clickFunc);
+
+          /**
+           * 9.3 绑定一次性事件
+           */
+          $("#one").one("click",() => {
+              console.log("绑定一次性事件，点击....");
+          });
+
+          /**
+           * 9.4 事件
+           *    mousedown()
+           *    mouseup()
+           *    mousemove()
+           *    mouseenter()
+           *    mouseleave()
+           *        上面的事件没有事件冒泡，还是js的特性
+           * 
+           *    mouseover  
+           *    mouseout   
+           *    
+           *    键盘事件：
+           *        keydown
+           *        keyup
+           *        keypress
+           * 
+           *    元素状态的一些事件：
+           *        focus   ：获得焦点的事件
+           *        blur    ：失去焦点的事件
+           *        change  ：内容值改变的时候的事件
+           *        select  ：选中内容的时候
+           * 
+           */
+           $(document).keydown((event) => {
+               /**
+                * 使用按钮按键值的时候，可以使用原生的keycode属性，
+                * 但是，最好使用jquery封装的which（考虑了兼容写法）
+                */
+                console.log(event.which); //打印keycode值
+           });
+           $("#menu").change(() => {
+               console.log("内容值改变了");
+           });
+           $("#user").select(() => {
+               console.log("内容被选中了");
+           });
+
+           /**
+            * 9.5 js混合jquery
+            *   jquery对象 -> js对象
+            *       []根据下标取出数组中的元素
+            *       使用jquery提供的getIndex(n),取出下标为n的元素
+            */
+            console.log($("#three").get(0));
+            var threeDiv = $("#three").get(0);//js对象
+            $("#three").mousedown((ev) => {
+                var disX = ev.clientX - threeDiv.offsetLeft;
+                var disY = ev.clientY - threeDiv.offsetTop;
+
+                $(document).mousemove((ev) => {
+                    threeDiv.style.left = ev.clientX - disX + "px";
+                    threeDiv.style.top = ev.clientY - disY + "px";
+                });
+                $(document).mouseup((ev) => {
+                    $(document).off("mousemove mouseup");
+                });
+            });
+
+            /**
+             * 9.6 拖拽
+             */
+            $("#three").mousedown(function(ev){ //此处不能使用=>函数
+                var disX = ev.clientX - $("#three").offset().left;
+                var disY = ev.clientY - $(this).offset().top;
+                $(document).mousemove((ev) => {
+                    var x = ev.clientX - disX;
+                    var y = ev.clientY - disY;
+                    //设置给 offset()
+                    $("#three").offset({
+                        left:x,
+                        top:y
+                    });
+                });
+                $(document).mouseup((ev) => {
+                    $(document).off("mousemove mouseup");
+                });
+            });
+
+    </script>
+</body>
+</html>
