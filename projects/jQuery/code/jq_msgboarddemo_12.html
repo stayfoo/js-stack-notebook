@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #wrap {
+            width: 500px;
+            margin: 50px auto 0;
+            text-align: center;
+            background: gainsboro;
+        }
+        #username {
+            width: 350px;
+        }
+        #content {
+            margin-top: 30px;
+            width: 350px;
+            height: 300px;
+             /*设置其他基于当前元素，在文档流这一行中，竖直方向的对齐方式，默认基线对齐*/
+            vertical-align: middle;
+            resize: none;
+        }
+        #sub {
+            margin: 30px 0;
+            width: 200px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            background: gold;
+        }
+        ul {
+            list-style: none;
+            width: 400px;
+            margin: 0 auto;
+        }
+        li {
+            width: 100%;
+            position: relative;
+            background: pink;
+        }
+        p {
+            width: 320px;
+            margin: 10px 0;
+            background: gold;
+        }
+        span {
+            position: absolute;
+            width: 80px;
+            right: 0;
+            bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <form action="###" method="get">
+            用户名：<input type="text" id="username" />
+            <br />
+            内&nbsp;&nbsp;&nbsp;&nbsp;容: <textarea name="content" id="content" cols="30" rows="10"></textarea>
+            <input type="button" value="提交" id="sub" />
+        </form>
+        <h2>留言板</h2>
+        <!--展示留言区域-->
+        <ul>
+            
+        </ul>
+    </div>
+
+    
+    <script src="../js/jquery-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        /**
+         *  留言板功能
+         */ 
+        $("#sub").click(function(){
+            if ( ($("#username").val().length == 0) || (/^\s+$/.test($("#username").val())) ) {
+                //不符合
+                alert("用户名不能为空白的");
+                return;
+            }
+            
+            if ( ($("#content").val().length == 0) || (/^\s+$/.test($("#content").val())) ) {
+                //不符合
+                alert("内容不能为空白的....");
+                return;
+            }
+            
+            //添加留言
+            var newLi = "<li><p>"+$("#username").val()+"</p><p>"+$("#content").val()+"</p><span>删除</span></li>";
+            $("ul").prepend(newLi);
+            //清空输入的内容
+            $("#username").val("");
+            $("#content").val("");
+
+            $("ul>li:first-child").css("display","none");
+            $("ul>li:first-child").slideDown(1000);
+            //添加删除事件
+            $("ul>li:first-child span").click(function(){
+                //slideUp()动画
+                $(this).parent().slideUp(1000,function(){
+                    //删除li
+                    $(this).remove();
+                });
+            });
+        });
+
+       
+    </script>
+</body>
+</html>

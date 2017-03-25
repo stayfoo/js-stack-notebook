@@ -10,24 +10,36 @@
             margin: 0;
             padding: 0;
         }
-        #one {
+        div {
             width: 100px;
             height: 100px;
+        }
+        #one {
             background: deepskyblue;
         }
         #two {
-            width: 100px;
-            height: 100px;
             background: greenyellow;
         }
         #three {
-            width: 100px;
-            height: 100px;
             background: red;
-            position: absolute;
+            /*position: absolute;*/
         }
         form {
             position: absolute;
+        }
+        #div1 {
+            background: orange;
+        }
+        #div2 {
+            background: palevioletred;
+        }
+        #div3 {
+            width: 200px;
+            height: 200px;
+            background: purple;
+        }
+        #inner {
+            background: gold;
         }
     </style>
 </head>
@@ -45,6 +57,13 @@
         </select>
         用户名： <input type="text" id="user"/>
     </form>
+    
+    <div id="div1">www.mengyueping.com</div>
+    <div id="div2"></div>
+    <div id="div3">
+        <div id="inner"></div>
+    </div>
+
 
     <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -180,7 +199,46 @@
                     $(document).off("mousemove mouseup");
                 });
             });
+            
+            /**
+             * 9.7 event事件对象常用知识点
+             *      which属性
+             *      which ： 1 -> 左键   2 -> 滚轮键  3 -> 右键
+             * 
+             *    target           ：真正的事件源
+             *    currentTarget    ：指的是当前执行事件的元素
+             *    ev.type          ：判断事件的类型
+             * 
+             *    ev.stopPropagation()     ：取消冒泡
+             *    ev.preventDefault()      ：取消默认操作
+             */ 
+            console.log("event事件对象......");
+             $("#div1").mousedown(function (ev){
+                 console.log(ev.which);
+                 //取消默认操作
+                 //方法1： 该方法不仅取消默认操作， 而且取消事件冒泡
+                 return false;
+                 //方法2：只是取消默认操作
+                 ev.preventDefault();
+                 //只是阻止冒泡：
+                // ev.stopPropagation();
+             });
 
+             $("#div2").click(function(){
+                 //点击位置到当前页面左上角的位置
+                 console.log(event.pageX,event.pageY);
+                 //点击位置到浏览器的左上角
+                 console.log(event.clientX,event.clientY);
+             });
+
+             $("#div3").click(function(ev){
+                 console.log(ev.currentTarget,ev.target + ".......div3");
+                 console.log(ev.type + "....type....div3"); //click....type....div3
+             });
+             $("#inner").click(function(ev){
+                 console.log(ev.currentTarget,ev.target + "......inner");
+             });
+             
     </script>
 </body>
 </html>

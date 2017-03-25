@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1"></div>
+    <input type="button" value="点击" id="btn"/>
+
+
+    <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        /**
+         * 10. DOM 操作
+         * 
+         * 10.1 创建元素
+         */
+         var p = "<p><span>www.mengyueping.com</span></p>";
+
+         /**
+          * 10.2 添加元素
+          *
+          * 10.2.1 
+          *     append(参数)  ：参数就是我们写的字符串
+          *     a.append(b)   ：把b添加到a中的尾部
+          *
+          *     A.appendTo(B)   ：把A添加到B中的尾部
+          *     A为jquery对象
+          */
+          $("body").append(p);
+          $(p).appendTo($("#div1"));
+
+          /**
+           * 10.2.2 
+           *    a.prepend(b)    ：在a元素内部的前面添加b元素
+           *    b.prependTo(a)  ：把b元素添加到a元素内部的前面
+           *    
+           */
+           var aDiv = "<div>前面追加div</div>";
+           //添加到body中的最前面
+           $("body").prepend(aDiv);
+           $(aDiv).prependTo($("#div1"));
+           
+          /**
+           * 10.2.3 
+           *    a.after(b)          ：把b元素添加到a元素外面的下面
+           *    b.insertAfter(a)    ：把b元素添加到a元素外面的下面
+           */
+           var a1 = "<a href='###'>点击</a>";
+           $("body").after(a1);
+           
+           $(a1).insertAfter($("#div1"));
+
+           /**
+            * 10.2.4 
+            *   before  
+            *   insertBefore
+            */
+            var span1 = "<span>www</span>";
+            $("body").before(span1);
+            $("span1").insertBefore($("#div1"));
+
+            /**
+             * 10.2.5 
+             *      a.wrap(b)       ：用b元素包裹每一个a
+             *      a.wrapAll(b)    ：用b元素包裹住所有的a（把所有的a元素包裹到一个b元素中）
+             *      a.wrapInner(b)  ：用b元素包裹a元素中的内容
+             */
+             var em1 = "<em></em>"; //使用em包裹span
+             $("span").wrap(em1);
+            //  $("span").wrapAll(em1);
+
+
+            /**
+             * 10.3 删除
+             *      remove()   ：不仅删除元素，与元素关联的事件也会被删除
+             *      detach()   ：只删除元素，返回值是该元素本身
+             *      
+             */
+             console.log($("a").eq(0).remove());
+             $("#btn").click(() => {
+                 console.log("点击btn");
+             });
+             var delBtn = $("#btn").detach();
+             $("body").append(delBtn);
+             
+
+             /**
+              * 10.4 替换
+              *     a.replaceWith(b)    ：用b元素替换a元素
+              *
+              *     a.replaceAll(b)     ：用a元素替换所有的b元素
+              *         b参数："选择器"
+              *
+              */
+              var span2 = "<span>替换span标签</span>";
+            //   $("a").replaceWith(span2);
+              $(span2).replaceAll("a");
+              
+              /**
+               * 10.5 遍历节点
+               *    each函数
+               */
+              $("div").each(function(index,element){
+                  //index   ： 下标
+                  //element ： 元素（js）
+                  console.log(index,element);
+                  switch(index){
+                      case 0:
+                            $(element).css("background","red");
+                            break;
+                      case 1:
+                            $(element).css("background","yellow");
+                            break;
+                      case 2:
+                            $(element).css("background","green");
+                            break;
+                      default:
+                            break;
+                  }
+              });
+    </script>
+</body>
+</html>

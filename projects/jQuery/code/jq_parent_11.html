@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wrap">
+        <div id="one"></div>
+        <div id="two">
+            <div id="child1"></div>
+            <div id="child2"></div>
+        </div>
+        <div id="three"></div>
+    </div>
+
+    <script src="../js/jquery-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        /**
+         * 11. 节点关系函数
+         *    parent()  ：父元素
+         *    parents() ：祖先元素
+         *      参数可以选择，指定的祖先元素("选择器")
+         * 
+         */
+         console.log($("#one").parent());
+         console.log($("#child1").parents("#wrap"));    //获取指定的祖先元素
+         console.log($("#child1").parentsUntil("body"));//指定到哪个祖先元素之前停止
+
+
+         /**
+          * 后代：
+          *     children() ：子元素，第一级子级。
+          *     find()     ：后代元素。参数：('选择器') 一定要指定参数
+          *             
+          */
+          console.log($("#wrap").children());
+          console.log($("#wrap").find("*"));
+          console.log($("#wrap").find("#one"));
+          
+          /**
+           * 兄弟：
+           *    prev()             ：向前找兄弟元素（相邻，并且是一个）
+           *    prevAll()          ：向前找所有的兄弟元素
+           *    prevUntil("选择器") ：向前找，截止到那个元素的兄弟元素
+           */
+           console.log($("#three").prev());
+           console.log($("#three").prevAll());
+           console.log($("#three").prevUntil("#one"));
+
+
+           /**
+            * 向后找
+            *      next()             ：向后找相邻的一个元素
+            *      nextAll()          ：向后找所有的兄弟元素
+            *      nextUntil("选择器") ：向后找指定到那个元素的兄弟元素
+            *      siblings()         ：所有的兄弟元素（无论向前向后）
+            */
+            console.log($("#one").next());
+            console.log($("#one").nextAll());
+            console.log($("#one").nextUntil("#three"));
+            console.log($("#two").siblings());
+
+    </script>
+</body>
+</html>
