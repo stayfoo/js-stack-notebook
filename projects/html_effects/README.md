@@ -491,7 +491,7 @@ window.onload = function(){
 
 * JS 页面跳转
 
-`window.location.href = "http://www.itcast.cn";`  ------BOM  
+`window.location.href = "http://www.itcast.cn";`  ------BOM
 
 * arguments 对象
 
@@ -586,7 +586,7 @@ window.onload = function(){
 
 			function autoPlay(){
   				num--;
-  				num <= -1200 ? num = 0 : num;  
+  				num <= -1200 ? num = 0 : num;
   				//1200：能够同时显示两个图片，一个图片300px，可见区域宽度是600
   				// 当-1200：刚好把显示到1->2->3->4->1->2 , 然后切换num=0, 刚好是1->2
   				ul.style.left = num + "px";
@@ -790,7 +790,7 @@ targetY = event.clientY - image.offsetHeight /2;
 				  var event = event || window.event;
 				  targetX = event.clientX - image.offsetWidth /2;
 				  targetY = event.clientY - image.offsetHeight /2;
-				  //clientY : 可视区域的为基准 	
+				  //clientY : 可视区域的为基准
 				  //offsetWidth：以带定位的父级元素为基准，如果没有就是body。此处是body
 			}
 			//缓动
@@ -832,7 +832,7 @@ targetY = event.clientY - image.offsetHeight /2;
 
 `screenX`、`screenY` ：是以我们的电脑屏幕 为基准点   测量
 
-`pageX`、`pageY` ： 以我们的  文档（绝对定位）的基准点 对齐  
+`pageX`、`pageY` ： 以我们的  文档（绝对定位）的基准点 对齐
 
 `clientX`、`clientY` ：以 可视区域 为基准点   类似于    固定定位
 
@@ -916,7 +916,7 @@ targetY = event.clientY - image.offsetHeight /2;
 这里的父级指的是所有上一级 不仅仅指的是 父亲 还可以是 爷爷 曾爷爷 曾曾爷爷。
 总结一下：  就是子盒子边框 到 定位的父盒子边框 的距离。
 
-* `offsetParent` ：  
+* `offsetParent` ：
 返回改对象的父级 （带有定位） 不一定是亲的爸爸。
 与返回父亲(亲的)parentNode有所区别。
 如果当前元素的父级元素没有进行CSS定位（position为absolute或relative），offsetParent为body。
@@ -1218,7 +1218,7 @@ window.scrollTo(x,y);
 window.onresize = function(){}
 ```
 
-* clientWidth   
+* clientWidth
 
 clientWidth ：返回的是 可视区 大小 浏览器内部的大小；
 
@@ -1353,7 +1353,7 @@ function animate(obj,target){
 匀速动画函数封装：
 
 ```javascript
-/*  
+/*
  *  匀速动画封装
  *
  *      obj：动画对象
@@ -1454,7 +1454,7 @@ function animate(obj,target){
 
 ```javascript
 //步长
-var step = (target - box.offsetLeft) / 10;  
+var step = (target - box.offsetLeft) / 10;
 //取整
 step = step > 0 ? Math.ceil(step) : Math.floor(step);
 ```
@@ -1603,7 +1603,7 @@ function animate(obj,json){
 
   	obj.timer = setInterval(function(){
     		//判断是否停止定时器
-    		var flag = true;  //true：停止定时器  
+    		var flag = true;  //true：停止定时器
     		for(var attr in json){
       			var current = parseInt(getStyle(obj,attr));
 
@@ -1726,7 +1726,7 @@ function animate(obj,json,fn){
       			if (attr == "opacity") {
       				  current = Math.round(parseInt(getStyle(obj,attr)*100)) || 0;
       			}else{
-      			  	current = parseInt(getStyle(obj,attr));  
+      			  	current = parseInt(getStyle(obj,attr));
       			}
       			//2.计算步长（遍历json获取目标值）
       			var step = (json[attr] - current) /10;
@@ -1804,7 +1804,7 @@ window.onload = function(){
 
     		lis[i].onmouseover = function(){  //100*4 + 800 = 1200
     			for (var j = 0; j < lis.length; j++) {
-    				  animate(lis[j],{width:100});  
+    				  animate(lis[j],{width:100});
     			}
     			animate(this,{width:800});
   		}

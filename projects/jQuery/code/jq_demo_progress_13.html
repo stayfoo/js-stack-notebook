@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>进度条功能 - 上面带进度描述</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+        body {
+            padding-top: 100px;
+        }
+        .p_father { /*父容器*/
+            position: relative;
+            background: orange;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-top: 50px;
+            padding-bottom: 20px;
+        }
+        .p_bar_desc { /*提示文字*/
+            /*background: cadetblue;*/
+            position: relative;
+            width: 150px;
+            height: 25px;
+        }
+        .p_bar_desc_bg { /*描述框背景*/
+            background: red;
+            width: 100%;
+            height: 80%;
+        }
+        .corner { /*下三角*/
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            border-width: 6px 6px 0px 6px;
+            border-color: #AE1F23 transparent;
+            border-style: solid;
+            left: 10px;
+        }
+        .p_bar { /*进度条*/
+            position: absolute;
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+    <div class="p_father">
+        <div id="change_p_bar_desc" class="p_bar_desc">
+            <div class="p_bar_desc_bg">
+                <span>目前参加人数：20</span>
+            </div>
+            <div id="change_corner" class="corner"></div>
+        </div>
+        <progress id="change_p_bar" value="10" max="15" class="p_bar"></progress>
+    </div>
+    
+    <script src="../js/jquery-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var ra = $("#change_p_bar").attr("value") / $("#change_p_bar").attr("max");  /*进度比率*/
+        var body_width = $(document.body).width(); 
+        var p_bar_left = body_width * 0.05;  //进度条盒子左边距离屏幕边缘的距离
+        var p_bar_width = body_width * 0.9;  //进度条盒子总长度
+        var p_bar_value_left = p_bar_width * ra; //进度 距离左边缘距离
+        
+        var p_bar_desc_width = $("#change_p_bar_desc").width();
+        var p_bar_desc_corner_width = $("#change_corner").outerWidth(true);
+        var p_bar_desc_corner_left = (p_bar_desc_width - p_bar_desc_corner_width) * ra; /*箭头left*/
+        // $("#change_corner").css({
+        //     left: p_bar_desc_corner_left
+        // });
+        $("#change_corner").animate({ 
+            left: p_bar_desc_corner_left
+        },2000);
+        var p_bar_desc_left = p_bar_value_left - p_bar_desc_corner_left - p_bar_desc_corner_width * 0.5; 
+        $("#change_p_bar_desc").animate({ 
+            left: p_bar_desc_left
+        },2000);
+
+        // $("#change_p_bar_desc").css({
+        //     left:p_bar_desc_left
+        // });
+
+
+
+        console.log("ra" + ra);
+        console.log("body_width: " + body_width);
+        console.log("p_bar_left: " + p_bar_left);
+        console.log("p_bar_width: " + p_bar_width);
+        console.log("p_bar_value_left: " + p_bar_value_left);
+        console.log("p_bar_desc_corner_width : " + p_bar_desc_corner_width);
+    </script>
+</body>
+</html>
