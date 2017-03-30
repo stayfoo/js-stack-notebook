@@ -12,10 +12,10 @@ Contents <a id="contents"></a>
 * [jq_animatie_05.html - jQuery 动画函数](#jq_05)
 * [jq_css_06.html - jQuery css函数](#jq_06)
 * [jq_attri_07.html - jQuery 常用元素的属性](#jq_07)
-* [jq_event_08.html -  ](#jq_08)
+* [jq_event_08.html - jQuery 事件函数](#jq_08)
 * [jq_demo_nav_09.html](#jq_09)
 * [jq_dom_10.html - jQuery DOM 操作](#jq_10)
-* [jq_parent_11.html - jQuery ](#jq_11)
+* [jq_parent_11.html - jQuery 节点关系函数](#jq_11)
 * [jq_demo_msgboard_12.html](#jq_12)
 * [jq_demo_progress_13.html](#jq_13)
 
