@@ -3,6 +3,5 @@
 
 * [`node.js` 使用及对API的理解](https://github.com/MengYP/HtmlEffects/tree/master/projects/nodejs)
 
-* [`jQuery` 使用]
-(https://github.com/MengYP/HtmlEffects/tree/master/projects/jQuery)
+* [`jQuery` 使用](https://github.com/MengYP/HtmlEffects/tree/master/projects/jQuery)
 
