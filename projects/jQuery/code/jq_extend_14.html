@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> jQuery 插件开发 - extend </title>
+    <style>
+        .father {
+            background: blue;
+            padding:30px;
+            width: 200px;
+            height: 200px;
+            position: relative; 
+        }
+        .child_1 {
+            position: absolute;
+            background: orange;
+            left: 280px;
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1" class="father">
+        <div id="child" class="child_1"></div>
+    </div>
+
+    <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        /*
+         *   12. jquery插件开发
+                类插件开发：添加全局函数，给jquery类本身添加类方法。
+                    jquery全局函数就是属于jquery命名空间的函数。
+                    典型例子： $.AJAX()
+
+                对象插件开发：给jquery对象添加方法。
+         *
+         */ 
+
+        //  12.1 jquery类扩展
+        $.extend({
+            hello: function(){
+                console.log("调用hello，jquery类扩展....");
+            },
+            say: function(){
+                console.log("调用say，jquery类扩展....");
+            }
+        });
+        $.run = function(){
+            console.log("调用run，jquery类扩展....");
+        }
+        //使用命名空间定义函数
+        jQuery.plugin = {
+            play: function(){
+                console.log("调用play， jquery类扩展.....");
+            },
+            work: function(){
+                console.log("调用work，jquery类扩展......");
+            }
+        }
+
+        // 调用，我们扩展的函数
+        $.hello();
+        $.say();
+        $.run();
+        $.plugin.play();
+        $.plugin.work();
+
+
+        //  12.2 jquery 对象扩展
+        (function($){
+            $.fn.extend({
+                drink: function(){
+                    console.log("调用drink， 对象扩展。。。。。。");
+                },
+                sleep: function(){
+                    console.log("调用sleep， 对象扩展。。。。。。");
+                }
+            });
+        })(jQuery);
+        
+        (function($){
+            $.fn.eat = function(){
+                console.log("调用eat， 对象扩展。。。。。。");
+            }
+        })(jQuery);
+        
+        $(document).drink();
+        $("#div1").sleep();
+        $("#div1").eat();
+
+        //接收参数来控制插件的行为
+        (function($){
+            $.fn.listen = function(options){
+                var defaults = {voice:"噪音",music:"音乐"};
+                var opts = $.extend(defaults,options);
+                console.log("opts.voice: "+opts.voice + "  opts.music: "+opts.music);
+            }
+        })(jQuery);
+        $(document).listen({voice:"声",music:"音"});
+
+        //提供公有方法访问插件的配置项值
+        (function($){
+            $.fn.smell = function(options){
+                var opts = $.extend({},$.fn.smell.defaults,options);
+                console.log("opts.sweet: " + opts.sweet + " opts.level: " + opts.level);
+            }
+            $.fn.smell.defaults = {"sweet":"pear","level":"strong"}; //插件的配置项值
+        })(jQuery);
+        $("div1").smell();
+
+        //提供公有方法访问插件中的其他方法
+        (function($){
+            $.fn.taste = function(options){
+                $.fn.taste.give(options);
+            }
+            $.fn.taste.give = function(params){
+                console.log(params);
+            }
+        })(jQuery);
+        $("div1").taste("taste--");
+
+        /*    
+            12.3 jquery 
+              $.extend{obj1, obj2}  
+                会把 obj2 中的属性添加到 obj1 中。
+                obj2 中有相同的属性名、属性值，会覆盖obj1。
+         */ 
+        var cat = {name: "Jim"};
+        console.log(cat);
+        $.extend(cat, {
+            name: "Tom",
+            gender: "boy",
+            height: 170,
+            weight: 100
+        });
+        console.log(cat);
+
+        /*
+         *  12.4  IIFE 的原理
+                立即执行函数。
+                特点：
+                    传统的方法啰嗦，定义和执行分开写。
+                    传统的方法直接污染全局命名空间。
+                IIFE创建了一个新的函数作用域，你真正的业务代码被封装在其中，自然不会触碰到全局对象。
+                如果需要全局对象，就传递给IIFE。 
+                例如：void function ride(global){//在这里，global 就是全局对象this了}(this); // 在浏览器里，this 就是 window 对象
+         */
+         //传统方法
+         function ride_0(){
+             console.log("调用ride_0函数------");
+         };
+         ride_0();
+
+         //IIFE
+         (function ride_1(){
+             console.log("调用ride_1函数------");
+         })();
+
+         (function ride_2(){
+             console.log("调用ride_2函数------");
+         }());
+
+         void function ride_3(){
+             console.log("调用ride_3函数------");
+         }();
+
+         !function ride_4(){
+             console.log("调用ride_4函数------");
+         }();
+
+         +function ride_5(){
+             console.log("调用ride_5函数------");
+         }();
+
+         (function smile(){})()
+         
+
+         /**
+          *  12.5 点击事件 
+                $("#ele").on("事件名称","selector",func)
+                    第二个参数,必须是ele元素的子级元素。
+                    相当于把事件绑定到子级元素上。
+                    子绝父相定位，子元素不在父元素区域，点击子元素，事件依然响应。
+          */
+          $("#div1").on("click","#child",() => {
+              console.log("-------点击了-child----");
+          });
+    </script>
+</body>
+</html>
