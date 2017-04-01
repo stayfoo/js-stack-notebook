@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="###" id="register">
+        邮箱：<input type="text" name="mail">
+        密码：<input type="text" name="password" id="pw">
+        确认密码：<input type="text" name="confirm">
+        <input type="button" value="提交">
+    </form>
+
+    <script src="../js/jquery-3.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--引入验证插件-->
+    <script src="../js/validate/validate.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $("#register").validate({
+            rules: {
+                mail: {email: true},
+                password: {
+                    minlength: 6,
+                    maxlength: 10
+                },
+                confirm: {
+                    equalTo: "#提示"
+                }
+            },
+            messages: {
+                mail: "格式不对",
+                password: "格式不对",
+                confirm: "密码不一样"
+            }
+        });
+    </script>
+</body>
+</html>
