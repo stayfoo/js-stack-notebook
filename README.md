@@ -1,7 +1,26 @@
+# 目录树
 
-* [`html` 常见效果，使用原生`js`实现](https://github.com/MengYP/HtmlEffects/tree/master/projects/html_effects) 
+```bash
+.
+├── README.md
+├── html_js          # html & javascript
+│   ├── README.md
+│   └── code
+├── jQuery           # jQuery
+│   ├── README.md
+│   ├── code
+│   └── js
+└── nodejs           # node.js
+    ├── README.md
+    └── code
+```
 
-* [`node.js` 使用及对API的理解](https://github.com/MengYP/HtmlEffects/tree/master/projects/nodejs)
 
-* [`jQuery` 使用](https://github.com/MengYP/HtmlEffects/tree/master/projects/jQuery)
+* [`javascript`操作`DOM`使用笔记](./html_js) 
+
+* [`node.js`笔记](./nodejs)
+
+* [`jQuery` 使用笔记](./jQuery)
+
+
 
