@@ -18,7 +18,7 @@
 
 * [`javascript`操作`DOM`使用笔记](./html_js) 
 
-* [`node.js`笔记](./nodejs)
+* [`node.js`使用笔记](./nodejs)
 
 * [`jQuery` 使用笔记](./jQuery)
 
