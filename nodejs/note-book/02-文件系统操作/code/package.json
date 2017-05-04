@@ -1,0 +1,17 @@
+{
+  "name": "code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "01-同步或异步调用读取文件.js",
+  "dependencies": {
+    "browser-sync": "^2.18.8",
+    "iconv-lite": "^0.4.16",
+    "marked": "^0.3.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
