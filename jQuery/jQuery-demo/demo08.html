@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>绑定/返绑定</title>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script>
+		function fn1(){
+			console.log("函数 --- fn1");
+		}
+		function fn2(e){
+			console.log("函数 -----fn2");
+//			e.pageX,e.target
+			console.log($(this).val());
+//			console.log($(e.target).val());
+		}
+		
+		$(document).ready(function(){
+			//1、为btnBind绑定事件
+			$("#btnBind").click(fn1); //绑定函数fn1
+			$("#btnBind").click(fn2);//绑定函数fn2
+			
+			//2、点击按钮1，执行解绑操作
+			$("#btnClick").click(function(){
+				$("#btnBind").unbind("click",fn1); //解除绑定fn1
+			});
+		});
+	</script>
+</head>
+<body>
+	<input id="btnBind" type="button" value="按钮1--绑定" />
+	<input id="btnClick" type="button" value="按钮2--Click" />
+</body>
+</html>

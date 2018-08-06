@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>基本选择器   样式操作.css </title>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script>
+		window.onload = function(){
+//			$("#book div").css("font-size","30px");
+//			$("#move>div").css("background","red");
+			$("#book~.v").css("background","darkgreen");
+		}
+	</script>
+</head>
+<body>
+	<div id="food class="v">
+		<div>肉串</div>
+		<div>烤肉</div>
+		<div>烤羊腿</div>
+		<div>鱼香肉丝</div>
+	</div>
+	<div id="book" class="v">
+		<div>钢铁侠</div>
+		<div>机器侠传奇</div>
+		<div>金刚娃</div>
+		<div>七龙珠漫画</div>
+	</div>
+	<div id="move" class="v">
+		<div>铁道游击队</div>
+		<div>诛仙青云志</div>
+		<div>大闹天竺</div>
+	</div>
+</body>
+</html>

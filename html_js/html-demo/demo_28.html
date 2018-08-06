@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>动态创建表格</title>
+	</head>
+	<body>
+		<button onclick="createTable()">创建表格</button>
+		<button onclick="fillData()">加载数据</button>
+		<div id="data"></div>
+	</body>
+	<script>
+	/**
+	 * 产品界面
+	 * 1、创建产品列表界面；
+	 * 2、为表格添加产品数据；
+	 * 3、删除表格中的产品数据。
+	 * */
+			var table = null;
+			function createTable(){
+				if (null == table) {
+					table = document.createElement('table');
+				}else{
+					return;
+				}
+				table.border = 1;
+				table.width = 500;
+				var tr0 = table.insertRow();
+				var td00 = tr0.insertCell();
+				td00.innerHTML = '名称';
+				var td01 = tr0.insertCell();
+				td01.innerHTML = '单价';
+				var td02 = tr0.insertCell();
+				td02.innerHTML = '库存数量';
+				var td03 = tr0.insertCell();
+				td03.innerHTML = '操作';
+				
+				var div = document.getElementById('data');
+				div.appendChild(table);
+			}
+			
+			//2、为表格添加产品数据
+			var data = [
+				{"id":1001,"name":'可口可乐',"price":2.5,"count":3000},
+				{"id":1003,"name":'百事可乐',"price":2.5,"count":5000},
+				{"id":1004,"name":'非常可乐',"price":2.3,"count":1000}
+			];
+			function fillData(){
+				if (null == table) {
+					return;
+				}
+				for (var i=0; i<data.length; i++) {
+					var item = data[i];
+					var tr = table.insertRow();
+					var td0 = tr.insertCell();
+					td0.innerHTML = item['name'];
+					var td1 = tr.insertCell();
+					td1.innerHTML = item['price'];
+					var td2 = tr.insertCell();
+					td2.innerHTML = item['count'];
+					var td3 = tr.insertCell();
+					td3.innerHTML = '<button onclick="deleteThisRow(this)">删除</button>';
+					//this ：就是button所在的这一行。
+				}
+			}
+			
+			//3、删除表格中的产品数据
+			function deleteThisRow(btn){
+				var i = btn.parentNode.parentNode.rowIndex;
+				table.deleteRow(i);
+			}
+		</script>
+</html>

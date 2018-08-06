@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>切换样式（如果存在就删除一个类，不存在就添加）</title>
+	<style type="text/css">
+		.yelloBack{background: yellow;}
+	</style>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script>
+		function btn_click(){
+			$("div").toggleClass("yellowBack");
+		}
+	</script>
+</head>
+<body>
+	<div>Hello World</div>
+	<div class="yelloBack">Hello jQuery</div>
+	<input type="button" value="测试" onclick="btn_click()" />
+</body>
+</html>

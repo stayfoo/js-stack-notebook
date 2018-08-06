@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			a{
+				border: 1px solid #aaa;
+				margin: 5px;
+				padding: 10px;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>目录</h2>
+		<a href="demo_01.html">demo_01：使用document对象创建一个不存在的节点(class属性节点)</a><br/>
+		<a href="demo_02.html">demo_02：相同id都添加样式：使用css和js不同效果</a><br/>
+		<a href="demo_03.html">demo_03：input标签的radio类型</a><br/>
+		<a href="demo_04.html">demo_04：</a><br/>
+		<a href="demo_05.html">demo_05：</a><br/>
+		<a href="demo_06.html">demo_06：</a><br/>
+		<a href="demo_07.html">demo_07：</a><br/>
+		<a href="demo_08.html">demo_08：</a><br/>
+		<a href="demo_09.html">demo_09：</a><br/>
+		<a href="demo_10.html">demo_10：</a><br/>
+		<a href="demo_11.html">demo_11：</a><br/>
+		<a href="demo_12.html">demo_12：</a><br/>
+		<a href="demo_13.html">demo_13：</a><br/>
+		<a href="demo_14.html">demo_14：</a><br/>
+		<a href="demo_15.html">demo_15：</a><br/>
+		<a href="demo_16.html">demo_16：</a><br/>
+		<a href="demo_17.html">demo_17：</a><br/>
+		<a href="demo_18.html">demo_18：</a><br/>
+		<a href="demo_19.html">demo_19：</a><br/>
+		<a href="demo_20.html">demo_20：</a><br/>
+		<a href="demo_21.html">demo_21：</a><br/>
+		<a href="demo_22.html">demo_22：</a><br/>
+		<a href="demo_23.html">demo_23：</a><br/>
+		<a href="demo_24.html">demo_24：</a><br/>
+		<a href="demo_25.html">demo_25：</a><br/>
+		<a href="demo_26.html">demo_26：</a><br/>
+		<a href="demo_27.html">demo_27：</a><br/>
+		<a href="demo_28.html">demo_28：</a><br/>
+		<a href="demo_29.html">demo_29：</a><br/>
+		<a href="demo_30.html">demo_30：</a><br/>
+		<a href="demo_31.html">demo_31：</a><br/>
+		<a href="demo_32.html">demo_32：</a><br/>
+		<a href="demo_33.html">demo_33：</a><br/>
+		<a href="demo_34.html">demo_34：</a><br/>
+		<a href="demo_35.html">demo_35：</a><br/>
+		<a href="demo_36.html">demo_36：</a><br/>
+		<a href="demo_37.html">demo_37：</a><br/>
+		<a href="demo_38.html">demo_38：</a><br/>
+		<a href="demo_39.html">demo_39：</a><br/>
+		<a href="demo_40.html">demo_40：</a><br/>
+		<a href="demo_41.html">demo_41：</a><br/>
+		<a href="demo_42.html">demo_42：</a><br/>
+		<a href="demo_43.html">demo_43：</a><br/>
+		<a href="demo_44.html">demo_44：</a><br/>
+		<a href="demo_45.html">demo_45：</a><br/>
+		<a href="demo_46.html">demo_46：</a><br/>
+		<a href="demo_47.html">demo_47：</a><br/>
+		<a href="demo_48.html">demo_48：</a><br/>
+		<a href="demo_49.html">demo_49：</a><br/>
+		<script>
+			for (var i=0;i<38;i++) {
+				var a = document.createElement('a');
+				if (i<10) {
+					a.href = 'demo_0'+i+'.html';
+					if (0 == i%5) {
+						a.innerHTML = 'demo_0'+i + '<br/>';
+					}else{
+						a.innerHTML = 'demo_0'+i +'&nbsp;&nbsp;';
+					}
+				}else{
+					a.href = 'demo_'+i+'.html';
+					if (0 == i%5) {
+						a.innerHTML = 'demo_'+i + '<br/>';
+					}else{
+						a.innerHTML = 'demo_'+i +'&nbsp;&nbsp;';
+					}
+				}
+				a.title = i.toString();
+				
+				document.body.appendChild(a);
+				
+				
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>网页title跑马灯效果</title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+		</style>
+	</head>
+	<body>
+		<h2>网页title跑马灯效果</h2>
+		<script>
+			document.title = '欢迎来到魔兽世界';
+			var counter = 0;
+			function changeTitle(){
+				if (0 == counter%8) {
+					document.title = '欢迎来到';
+				}else if(1 == counter%8){
+					document.title = '迎来到魔';
+				}else if(2 == counter%8){
+					document.title = '来到魔兽';
+				}else if(3 == counter%8){
+					document.title = '到魔兽世';
+				}else if(4 == counter%8){
+					document.title = '魔兽世界';
+				}else if(5 == counter%8){
+					document.title = '兽世界欢';
+				}else if(6 == counter%8){
+					document.title = '世界欢迎';
+				}else if(7 == counter%8){
+					document.title = '界欢迎来';
+				}
+				counter++;
+			}
+			setInterval(changeTitle, 300);
+		</script>
+	</body>
+</html>

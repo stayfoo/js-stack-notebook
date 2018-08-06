@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		#myDiv{width: 200px;height: 200px;background: yellow;border: 10px solid red;}
+		#myDiv1{width: 200px;height: 200px;background: yellow;}
+	</style>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script src="jquery-ui-1.11.2.custom/jquery-ui.js"></script>
+	<script>
+		$(function(){
+			$("#myDiv").click(function(){
+				$("#myDiv").animate({backgroundColor:"#ff4200",borderBottomColor:"#0024ff",borderTopColor:"#e4393c"});
+			});
+			$("#myDiv1").click(function(){
+				$(this).hide("bounce",2000);
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="myDiv"></div>
+	<div id="myDiv1"></div>
+</body>
+</html>

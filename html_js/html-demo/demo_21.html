@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>方块随着鼠标移动而移动</title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			#zhuanTou{
+				background: orange;
+				width: 150px;
+				height: 100px;
+				position: fixed;
+				left: 50px;
+				top: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="zhuanTou"></div>
+		<script>
+			var zt = document.querySelector('#zhuanTou');
+			var isPressed = false;
+			var offsetX = 0;
+			var offsetY = 0;
+			zt.onmousedown = function(event){
+				isPressed = true;
+				this.style.cursor = 'move';
+				offsetX = event.offsetX;
+				offsetY = event.offsetY;
+			}
+			zt.onmouseup = function(){
+				isPressed = false;
+				this.style.cursor = 'default';
+			}
+			zt.onmouseover = function(event){
+				if (!isPressed) {
+					return;
+				}
+				zt.style.left = (event.clientX-offsetX)+'px';
+				zt.style.top = (event.clientY-offsetY)+'px';
+			}
+		</script>
+	</body>
+</html>
+ 

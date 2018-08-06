@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>使用HTML DOM实现"无限层级"的下拉列表</title>
+		<script type="text/javascript">
+			/**
+			 * 使用HTML DOM的方式实现联动菜单
+			 */
+			var categoryData = [
+							{"id":10,"name":'男装','children':[
+																{"id":101,"name":'正装'},
+																{"id":102,"name":'T恤'},
+																{"id":103,"name":'裤衩'}
+															]},
+							{"id":20,"name":'女装','children':[
+																{"id":201,"name":'短裙'},
+																{"id":202,"name":'连衣裙'},
+																{"id":203,"name":'裤子',"children":[
+																									{"id":2031,"name":'长裤'},
+																									{"id":2032,"name":'九分裤'},
+																									{"id":2033,"name":'七分裤'}
+																								]}
+															]},
+							{"id":30,"name":'童装','children':[
+																{"id":301,"name":'帽子'},
+																{"id":302,"name":'套装',"children":[
+																									{"id":3021,"name":'0-3岁'},
+																									{"id":3022,"name":'3-6岁'},
+																									{"id":3023,"name":'6-9岁'},
+																									{"id":3024,"name":'9-12岁'}
+																								]},
+																{"id":303,"name":'手套'}
+															]}
+					
+						];
+			function loadData(data){
+				if (!data) { //数据不存在，则不加载
+					return;
+				}
+				var select = document.createElement('select');
+				var option = document.createElement('option');
+				option.value = 0;
+				option.text = '--请选择--';
+				select.add(option);
+				
+				for (var i=0;i<data.length;i++) {
+					var item = data[i];
+					var option = document.createElement('option');
+					option.value = item['id'];
+					option.text = item['name'];
+					select.add(option);
+				}
+				document.getElementById('category').appendChild(select);
+				select.onchange = function(){
+					while(select.parentNode.lastChild != select){ //删除当前select之后可能存在的所有select
+						select.parentNode.removeChild(select.parentNode.lastChild);
+					}
+					loadData(data[select.selectedIndex-1].children);//递归调用
+				}
+			}
+		</script>
+	</head>
+	<body onload="loadData(categoryData)">
+		<div id="category"></div>
+	</body>
+</html>

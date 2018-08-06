@@ -1,0 +1,5 @@
+.onShow{background:url(../images/reg1.gif) no-repeat; padding-left:25px; height:20px; line-height:20px; }
+.onFocus{background:#E9F0FF url(../images/reg2.gif) no-repeat; padding-left:25px; height:20px; line-height:20px;}
+.onError{background:#FFF2E9 url(../images/reg3.gif) no-repeat; padding-left:25px; height:20px; line-height:20px;}
+.onSuccess{background:#E9FFEB url(../images/reg4.gif) no-repeat; padding-left:25px; height:20px; line-height:20px;}
+.onLoad{background:#E9FFEB url(../images/loading.gif) no-repeat 3px 3px; padding-left:25px; height:20px; line-height:20px;} 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!--<meta http-equiv="refresh" content="3;http://www.baidu.com";/>-->
+		<title>桌面正中间弹出窗口</title>
+	</head>
+	<body>
+		<h2>桌面正中间弹出窗口</h2><br />
+		<script>
+			function openWin(){
+				var totalWidth = screen.availWidth;
+				var totalHeigth = screen.availHeight;
+				var winWidth = 400;
+				var winHeight = 300;
+				var left = (totalWidth-winWidth)/2;
+				var top = (totalHeigth-winHeight)/2;
+				open(
+					'demo_19.html',
+					'NewWindow',
+					'width='+winWidth+',height='+winHeight+',top='+top+',left='+left
+				);
+			}
+			openWin();
+		</script>
+	</body>
+</html>

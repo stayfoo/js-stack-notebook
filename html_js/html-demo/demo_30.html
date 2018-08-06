@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		用户名：<input id="userName"/><br />
+		手机号：<input id="tele"/><br />
+		<input type="button" value="提交" onclick="check()"/>
+		<script>
+			function check(){
+				var patt = /^1[3589]\d{9}$/;
+				var tele = document.querySelector('#tele');
+				if (patt.test(tele.value)) {
+					console.log('电话号码合法');
+				}else{
+					console.log('电话号码非法');
+					tele.focus(); //输入框获取焦点
+					tele.select(); //选中输入框全部的文本
+				}
+			}
+		</script>
+	</body>
+</html>

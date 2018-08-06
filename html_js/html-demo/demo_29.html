@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>获取表单的两种方法</title>
+</head>
+<body>
+     <h2>获取表单的两种方法</h2>
+     <form id="addProductForm">
+     	用户名：<input type="text" name="userName" value="请输入QQ号/邮箱/手机号"/><br/>
+     	<!--readonly="readonly"：只读，不可修改，点击Enter可以提交； disabled="disabled"：不可修改，点击Enter不可提交-->
+     	<input type="checkbox" name="agree" value="agree" onclick="checkAgree(this)"/>同意使用条款<br/>
+     	<input id="btSubmit" type="submit" disabled="1"/>
+     </form>
+     <script>
+            var f1 = document.querySelector('#addProductForm');
+            var f2 = document.forms[0]; //HTML DOM
+            //console.log(f1===f2);//true
+            f2.action = '12.php';
+            f2.method = 'GET';
+            f2.enctype = 'application/x-www-form-urlencoded';
+            //Encoded Type
+            //查看Text对象的属性
+            var userName = f2.elements[0];
+            console.log(f2.elements);
+            console.log(userName.type);
+            console.log(userName.name);
+//          userName.readOnly = true;//HTML中只要出现就是只读，DOM中其类型为boolean
+            console.log(userName.readOnly);//默认是false
+            userName.disabled = true; //DOM中也是boolean
+			console.log(userName.disabled);//默认是false
+			
+			function checkAgree(checkbox){
+				console.log('checkbox.checked：'+checkbox.checked);
+				document.querySelector('#btSubmit').disabled = !checkbox.checked;
+			}
+      </script>
+</body>
+</html>

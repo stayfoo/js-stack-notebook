@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>表格</title>
+		<style>
+			*{margin: 0;padding: 0;}
+			thead tr{
+				background: #aaf;
+			}
+			.odd{
+				background: #ccf;
+			}
+		</style>
+	</head>
+	<body>
+		<table id="empData" border="1" width="500px">
+			<thead>
+				<tr><th>编号</th><th>姓名</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1000</td>
+					<td>Tom0</td>
+				</tr>
+				<tr>
+					<td>1001</td>
+					<td>Tom1</td>
+				</tr>
+				<tr>
+					<td>1002</td>
+					<td>Tom2</td>
+				</tr>
+				<tr>
+					<td>1003</td>
+					<td>Tom3</td>
+				</tr>
+				<tr>
+					<td>1004</td>
+					<td>Tom4</td>
+				</tr>
+				<tr>
+					<td>1005</td>
+					<td>Tom5</td>
+				</tr>
+			</tbody>
+		</table>
+		<script>
+			//查找tbody tr
+			//方法一：兼容所有浏览器
+			var table = document.getElementById('empData');
+			var tbody = table.getElementsByTagName('tbody')[0];
+			var trList = tbody.getElementsByTagName('tr');
+			
+			//方法二：ie8以下不支持
+//			var trList = document.querySelectorAll('table tbody tr');
+			for (var i=0;i<trList.length;i++) { 
+				if (1==i%2) { //奇、偶行样式不同
+					var tr = trList[i];
+					tr.setAttribute('class','odd');
+				}
+			}
+			
+		</script>
+	</body>
+</html>

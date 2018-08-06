@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>向表格中添加json数据</title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+		</style>
+		<script>
+			function showData(){
+				var str = '[{"ename":"Tom","salary":5500,"age":18},{"ename":"Jim","salary":9500,"age":21},{"ename":"Jon","salary":3500,"age":20}]';
+				var arr = JSON.parse(str);
+				var tbody = document.querySelectorAll('table tbody')[0];
+				
+				for (var i=0;i<arr.length;i++) {
+					var emp = arr[i];
+					var ename = emp.ename;
+					var salary = emp.salary;
+					var age = emp.age;
+
+					var tr = document.createElement('tr');
+					var td0 = document.createElement('td');
+					var td1 = document.createElement('td');
+					var td2 = document.createElement('td');
+					var td3 = document.createElement('td');
+					
+					tr.appendChild(td0);
+					tr.appendChild(td1);
+					tr.appendChild(td2);
+					tr.appendChild(td3);
+					td0.innerHTML = ename;
+					td1.innerHTML = salary;
+					td2.innerHTML = age;
+					
+					var fragment = document.createDocumentFragment()
+					fragment.appendChild(tr);
+					tbody.appendChild(fragment);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<button onclick="showData()">获取数据</button>
+		<table border="1" width="500">
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>工资</th>
+					<th>年龄</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</body>
+</html>

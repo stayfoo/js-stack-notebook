@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>jquery遍历元素</title>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function(){
+			//1、获取所有的li
+			var $li = $("ul li");
+			//2、打印元素个数
+			console.log("元素个数为："+$li.length);
+			//3、通过each方法循环遍历数组中的元素
+			$li.each(function(i){
+				//i表示当前遍历的元素索引
+				//this表示当前遍历出来的dom元素
+				console.log("索引："+i);
+				console.log("dom元素："+this);
+				console.log("转换为jQuery元素："+$(this));
+				$(this).html($(this).html()+i);
+				
+				console.log("当前元素的索引为："+$li.index(this));
+				console.log("当前元素的索引为："+$li.index($(this)));
+			});
+			
+			$("input[type='button']").click(function(){
+				var index = parseInt($("#txtIndex").val());
+				var $li = $("li").eq(index);
+				console.log($li.html());
+			});
+		});
+	</script>
+</head>
+<body>
+	<ul>
+		<li>无中生有</li>
+		<li>调虎离山</li>
+		<li>围魏救赵</li>
+		<li>走为上</li>
+		<li>明修栈道暗度陈仓</li>
+		<li>声东击西</li>
+	</ul>
+</body>
+</html>

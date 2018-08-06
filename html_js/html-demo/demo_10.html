@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>选择添加多个文件</title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			.aphoto{
+				padding: 10px 0 10px 10px;
+			}
+		</style>
+		<script type="text/javascript">
+			function addPhoto(){
+				var inputFile = document.createElement('input');
+				inputFile.setAttribute('type','file');
+				inputFile.setAttribute('name','myphoto');
+				var inputBtn = document.createElement('input');
+				inputBtn.setAttribute('type','button');
+				inputBtn.setAttribute('value','删除');
+				
+				var div = document.createElement('div');
+				div.setAttribute('class','aphoto');
+				
+				div.appendChild(inputFile);
+				div.appendChild(inputBtn);
+				
+				document.getElementById('photoContainer').appendChild(div);
+			}
+		</script>
+	</head>
+	<body>
+		<button onclick="addPhoto()">添加更多</button>
+		<div id="photoContainer">
+			<div class="aphoto">
+				<input type="file" name="myphoto"/><input type="button" value="删除"/> 
+				<!--注意换行，换行 会导致不对齐现象，在网页显示中相当于一个空格。-->
+			</div>
+		</div>
+	</body>
+</html>

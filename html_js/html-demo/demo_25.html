@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>核心DOM 与 HTMLDOM</title>
+	</head>
+	<body>
+		<a href="1.html" class="mylink" target="_blank" title="我的链接" id="mya1" abc="xyz">超链接</a>
+		<script>
+			var a = document.querySelector('#mya1');
+			console.log(a);
+			console.log(typeof a); //object
+//			console.log(a instanceof Anchor);
+			//使用核心DOM方法访问元素的属性
+			console.log(a.getAttribute('href')); //1.html
+			console.log(a.getAttribute('class'));//mylink
+			console.log(a.getAttribute('target'));//_blank
+			console.log(a.getAttribute('title'));//我的链接
+			console.log(a.getAttribute('id'));//mya1
+			console.log(a.getAttribute('abc')); //xyz
+			console.log('\n');
+			
+			//使用HTMLDOM方法访问元素的属性
+			console.log(a.href); //http://127.0.0.1:8020/HelloDemo/1.html
+			console.log(a.className); //mylink
+			console.log(a.target);//_blank
+			console.log(a.title);//我的链接
+			console.log(a.id);//mya1
+			console.log('ABC：'+a.abc);//undefined
+		</script>
+	</body>
+</html>

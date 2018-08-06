@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>使用document对象创建一个不存在的节点(class属性节点)</title>
+		<style>
+			*{
+				margin:0;
+				padding: 0;
+			}
+			.red1{
+					color: #f00;
+					background: #0ff;
+				}
+			.green1{
+					color: #0f0;
+					background: #f0f;
+				}
+			.blue1{
+				color: #00f;
+				background: #ff0;
+			}
+		</style>
+		<script>
+			function changeColor(className){
+				var div = document.getElementById('msg');
+				//方法一：
+//				div.setAttribute('class',className);//<div class="red1">
+				//方法二：使用document对象创建一个不存在的节点(属性节点)
+				var attr = document.createAttribute('class');
+				attr.value = className;
+				div.setAttributeNode(attr);
+			}
+		</script>
+	</head>
+	<body>
+		<div id="msg">Hello World</div>
+		<button onclick="changeColor('red1')">变绿</button>
+		<button onclick="changeColor('green1')">变红</button>
+		<button onclick="changeColor('blue1')">变蓝</button>
+	</body>
+</html>

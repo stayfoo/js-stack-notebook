@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<span class="s1">行内元素1</span>
+			<span class="s2">行内元素2</span>
+			<span class="s1">行内元素3</span>
+			<span class="s1 s2">行内元素4</span>
+		</div>
+			<span class="s1">行内元素5</span>
+		<script>
+//			var div = document.getElementById('main');
+//			var list = div.getElementsByClassName('s1');
+//			console.log(list);
+//			document.getElementsByClassName('s1');
+			var x = document.querySelector('#main .s1'); //只返回第一个
+			console.log(x);
+			var y = document.querySelectorAll('#main .s1');
+			console.log(y);
+		</script>
+	</body>
+</html>

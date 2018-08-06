@@ -1,0 +1,206 @@
+<!-- 孟跃平的网络日志 - 全部文章  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap-3.3.7-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/stylesheets/font-awesome/font-awesome.css" />
+    <link rel="stylesheet" href="/stylesheets/base.css" />
+    <style charset="utf-8" type="text/css">
+        .line {
+            background: #222;
+            height: 2px;
+            top:0;
+        }
+        .header h1 {
+            margin-top: 0.9em;
+            font-size: 1.8em;
+            color: #556677;
+        }
+        .container {
+            padding: 25px;
+        }
+        .container-inner {
+            
+        }
+        .content {
+            padding: 15px;
+        }
+        /*分割线*/
+        h1,h2,h3 {
+            font-size: 2.2em;
+            font-weight: 500;
+            margin: 0.4em 0 0.2em 0;
+            padding: 0 0 0.2em 0;
+            color: #000000;
+            letter-spacing: -0.03em;
+            border-bottom: 1px solid #d3d3d3;
+        }
+        /*flex 弹性盒子*/
+        .flex {
+            display: flex;
+            display: -webkit-flex;
+        }
+        .flex-add {
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .alpha {
+            flex:4;
+            padding: 10px;
+        }
+        .alpha-inner .home-page ul li span {
+            color: rgba(0,0,0,0.5);
+        }
+        .beta {
+            flex:1;
+            padding: 10px;
+        }
+        .module {
+            background-color: #DEEBF7;
+            padding: 2em;
+            border-radius: 1em;
+            margin-bottom: 1em;
+        }
+        .module-categories {
+            
+        }
+        .module-list {
+            padding-left: 3em;
+        }
+        .module-list-item {
+            list-style: square;
+            padding: 0.5em;
+        }
+        /*底部*/
+        .footer {
+            text-align:center;
+            height: 30px;
+            background-color: #DEEBF7;
+            border-radius: 1em;
+        }
+        .footer-content p {
+            font-size: 15px;
+            text-align: right;
+            padding-right: 1em;
+            padding-top: 0.3em;
+        }
+    </style>
+</head>
+<body>
+    <div class="line"></div>
+    <div class="container">
+        <div class="container-inner">
+            <!-- 头部 -->
+            <div class="header">
+                <h1><a href="/blog">孟跃平的网络日志</a> » 归档</h1>
+            </div>
+            <!-- 内容 -->
+            <div class="content">
+                <div class="flex flex-add content-inner">
+                    <!-- 左边内容 -->
+                    <div class="alpha">
+                        <div class="alpha-inner">
+                            <!-- 文章目录 -->
+                            <div class="home-page">
+                                <h3>最近20篇文章（共<%= total %>篇）</h3>
+                                <span class=""></span>
+                                <ul class="module-list">
+                                     <!-- 数据循环创建列表 -->
+                                    <% publishs.forEach(function(e,index) { %>
+                                        <% url = '/blog/'+e._id+'.html'; %>
+                                        <li class="module-list-item"><span> <%= e.time.day %> » </span><a href='<%= url %>'><%= e.title %></a></li>
+                                    <% }); %>
+                                </ul>
+                                <br />
+                                <div>
+                                    <% if(!isFirstPage){ %>
+                                        <span class="prepage"><a title="上一页" href="/blog/archives.html?p=<%= page-1 %>">上一页</a></span>
+                                    <% } %>
+
+                                    <% if(!isLastPage){ %>
+                                        <span class="nextpage"><a title="下一页" href="/blog/archives.html?p=<%= page+1 %>">下一页</a></span>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <!--  -->
+                        </div>
+                    </div>
+                    <!-- 右边栏 -->
+                    <div class="beta">
+                        <div class="beta-inner">
+                            <div class="module">
+                                <h2>标签</h2>
+                                <div>
+                                    <ul class="module-list">
+                                        <li class="module-list-item"><a href="">javascript（11）</a></li>
+                                        <li class="module-list-item"><a href="">Node.js（22）</a></li>
+                                        <li class="module-list-item"><a href="">iOS（33）</a></li>
+                                        <li class="module-list-item"><a href="">Shell（44）</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 底部 -->
+            <div class="footer">
+                <div class="footer-inner">
+                    <div class="footer-content">
+                        <p><a href="#">联系方式</a> | <a href="http://www.mengyueping.com/" title="孟跃平的网站" target="_blank" class="footer_font_theme">mengyueping.com</a> 2016 - 2017</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="line"></div>
+  
+
+  <script charset="utf-8" type="text/javascript" src="/javascripts/jquery-3.1.1.js"></script>
+  <script charset="utf-8" type="text/javascript" src="/javascripts/main.js"></script>
+  <script>
+        $(document).ready(() => {
+            console.log("$(document).ready，DOM加载完毕....");
+            var body_h = $("body").height(); //获取body高度
+            var body_w = $("body").width();  //获取body宽度
+            var doc_h = $(document).height();//文档高度
+            var win_h = $(window).height();   //浏览器可视窗口的高度
+
+            console.log('doc_h: ' + doc_h);
+            console.log('body_h: ' + body_h);
+            console.log('win_h: ' + win_h);
+        });
+
+         //监听窗口大小改变
+        $(window).resize(() => {
+            if($("#menu_sidenav").is(":hidden")) return; //如果隐藏返回
+            
+            console.log("$(window).resize， 监听窗口大小改变....");
+            var body_h = $("body").height(); //获取body高度
+            var body_w = $("body").width();  //获取body宽度
+
+            var doc_h = $(document).height();//文档高度
+            var win_h = $(window).height();  //浏览器可视窗口的高度
+            var win_w = $(window).width();   //浏览器可视窗口的宽度
+
+            console.log('doc_h: ' + doc_h);
+            console.log('body_h: ' + body_h);
+            console.log('body_w: ' + body_w);
+            console.log('win_h: ' + win_h);
+            console.log('win_w: ' + win_w);
+
+        });
+
+        //监听页面滚动
+        $(window).scroll(() => {
+            var scroll_top = $(document).scrollTop();
+            console.log("$(document).scrollTop(): " + scroll_top);
+        });
+
+  </script>
+</body>
+</html>

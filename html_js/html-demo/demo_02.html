@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>相同id都添加样式：使用css和js不同效果</title>
+		<style type="text/css">
+			*{margin:0;padding:0;}
+			/*实际开发中不要有相同id*/
+			#main{ /*所有的相同id都添加样式*/
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<span id="s1">行内元素1</span>
+			<span id="s2">行内元素2</span>
+		</div>
+		<div id="main">
+			<span id="s1">行内元素3</span>
+			<span id="s2">行内元素4</span>
+		</div>
+		<div id="main2">
+			<span id="s1">行内元素3</span>
+			<span id="s2">行内元素4</span>
+		</div>
+		<script>
+			var x = document.getElementById('main'); //有重复的id不管，js只返回找到的第一个。
+			console.log(x);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>创建新元素，并追加新元素</title>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script>
+		function test_click(){
+			//通过属性过滤选择器获取页面元素
+			var $userName=$("input[name='userName']");
+			console.log($userName.val());
+		}
+		
+		function insert_click(){
+			//创建新元素
+			var $div=$("<div>Hello H5</div>");
+			$("body").append($div); //追加元素
+			
+			$("body").append("<hr/>");
+			
+			$("body").append("<div>Hello World</div>");
+			
+			var $td=$("<td>JQuery</td>");
+			var $tr=$("<tr></tr>")
+			var $table=$("<table></table>");
+			$table.append($tr);
+			$tr.append($td);
+			$("body").append($table);
+		}
+	</script>
+</head>
+<body>
+	<form>
+		用户名称：<input type="text" name="userName" /> <br />
+		用户密码：<input type="password" name="userPass" /><br />
+		<input type="button" value="获取用户名（打印）" onclick="test_click()"/>
+		<input type="button" value="创建新元素并追加到body" onclick="insert_click()"/>
+	</form>
+</body>
+</html>

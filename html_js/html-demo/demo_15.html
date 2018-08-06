@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>一次性定时器</title>
+	</head>
+	<body>
+		<h2>一次性定时器</h2>
+		<button onclick="stopTimer()">停止一次性定时器</button>
+		<script>
+			var i = 999;
+			//3秒钟后打印一遍i的值
+			//task：打印i的值
+			//time：3000
+			function printValue(){
+				document.write(i);
+				window.setTimeout(printValue,3000); //模拟周期性打印
+			}
+			var timer = window.setTimeout(printValue,3000);
+			
+			function stopTimer(){//模拟周期性打印，停止计时器
+				window.clearTimeout(timer);
+			}
+		</script>
+	</body>
+</html>

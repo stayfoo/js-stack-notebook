@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery操作DOM--查询文本  内容过滤选择器</title>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script>
+		function btn_click(){
+			var value=$("#txtSearch").val();
+//			var value=$("#txtSearch").val("value");
+			console.log(value);
+			//筛选出li中包含value文本的元素
+			$("#container li:contains('"+value+"')").css("background","yellow");
+		}
+	</script>
+</head>
+<body>
+	<div id="container">
+		<ul>
+			<li>Java开发</li>
+			<li>iOS开发</li>
+			<li>Android开发</li>
+			<li>Java Web企业级应用</li>
+			<li>新东方英语</li>
+			<li>新东方厨师培训学校</li>
+			<li>Web详解</li>
+			<li>H5开发</li>
+			<li>H5前端工程师</li>
+		</ul>
+		<input id="txtSearch" />
+		<input type="button" value="显示" onclick="btn_click()" />
+	</div>
+</body>
+</html>

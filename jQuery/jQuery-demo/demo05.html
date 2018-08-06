@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>事件绑定 clone复制</title>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script>
+		function btn_click(){
+			console.log("来来来阿里啊!!!!!!");
+		}
+		
+		function copy_click(event){
+			var newBtn = $("#btnTest").clone(true);
+			$(event).before(newBtn);
+		}
+		
+		window.onload=function(){
+			$("#btnTest").bind("click",function(){
+				console.log("猴子请来的逗逼.....");
+			});
+		}
+	</script>
+</head>
+<body>
+	<input id="btnTest" type="button" value="时间绑定" />
+	<input type="button" value="clone复制" onclick="copy_click(this)" />
+</body>
+</html>

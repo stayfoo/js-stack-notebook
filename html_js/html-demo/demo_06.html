@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>多标签页效果__代码精简</title>
+		<style>
+			.tab{
+				width: 150px;
+				height: 60px;
+				border: 1px solid #aaa;
+				border-bottom: none;
+				text-align: center;
+				line-height: 60px;
+				cursor: pointer;	
+				float: left;
+			}
+			#tab0,#page0{
+				background: #faf;
+			}
+			#tab1,#page1{
+				background: #afa;
+			}
+			#tab2,#page2{
+				background: #faa;
+			}
+			.pageContainer{
+				position: relative;
+				clear: both;
+			}
+			.pageContainer > div{ /*------------------精简代码*/
+				position: absolute;
+				width: 550px;
+				height: 100px;
+				border: 1px solid #aaa;
+			}
+			.topPage{
+				z-index: 1;
+			}
+		</style>
+		<script>
+			function showPage(num){
+				//把其它标签页的class改为page
+				var container = document.getElementsByClassName('pageContainer')[0];
+				var divList = container.getElementsByTagName('div');
+				for (var i=0;i<divList.length;i++) {
+					if(i!=num){      	//-----------------精简代码
+							var div = divList[i]; 
+							div.removeAttribute('class');
+					}
+				}
+				//把待显示的标签页的class改为page topPage
+				var pageDiv = document.getElementById('page'+num);
+				var classNode = document.createAttribute('class');
+				classNode.value = 'page topPage';
+				pageDiv.setAttributeNode(classNode);
+			}
+		</script>
+	</head>
+	<body>
+		<h2>多标签页效果__代码精简</h2>
+		<div id="tab0" class="tab" onclick="showPage(0)">10元套餐</div>
+		<div id="tab1" class="tab" onclick="showPage(1)">50元套餐</div>
+		<div id="tab2" class="tab" onclick="showPage(2)">100元套餐</div>
+		<div class="pageContainer">
+			<div id="page0" class="topPage">10元套餐详情</div>
+			<div id="page1">50元套餐详情</div>  <!-----------------精简代码-->
+			<div id="page2">100元套餐详情</div> <!-----------------精简代码-->
+		</div>
+	</body>
+</html>

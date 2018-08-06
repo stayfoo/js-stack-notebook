@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link href="jquery-ui-1.11.2.custom/jquery-ui.css" />
+	<link href="jquery-ui-1.11.2.custom/jquery-ui.theme.css" />
+	<style>
+		#myDiv{width: 200px;height: 200px;background: yellow;}
+		li{list-style: none;margin: 10px;padding: 10px;border: 1px solid black;}
+	</style>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script src="jquery-ui-1.11.2.custom/jquery-ui.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#myDiv").draggable();
+			$("ul").sortable({axis:"y"});
+		});
+	</script>
+</head>
+<body>
+	<div id="myDiv" class="ui-draggable ui-draggable-handle" style="position: relative;"></div>
+	<div>
+		<ul class="ui-sortable">
+			<li class="ui-sortable-handle">投石问路</li>
+			<li class="ui-sortable-handle">调虎离山</li>
+			<li class="ui-sortable-handle">声东击西</li>
+			<li class="ui-sortable-handle">明修栈道暗度陈仓</li>
+			<li class="ui-sortable-handle">围魏救赵</li>
+			<li class="ui-sortable-handle">无中生有</li>
+			<li class="ui-sortable-handle">反客为主</li>
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>周期性定时器</title>
+	</head>
+	<body>
+		<h2>周期性定时器</h2>
+		<script>
+			var i = 0;
+			//每隔半秒钟打印一遍i的值
+			//task:打印i的值
+			//time：500
+			function printValue(){
+				document.write(i+'<br/>');
+				i++;
+				if (10 <= i) {
+					window.clearInterval(timer); //清除计时器
+				}
+			}
+			var timer = window.setInterval(printValue, 1000); 
+			//先等1秒钟（1000毫秒），再执行函数printValue
+		</script>
+	</body>
+</html>

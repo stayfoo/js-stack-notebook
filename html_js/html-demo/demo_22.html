@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>随着用户的输入，检验密码的强度</title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+		</style>
+	</head>
+	<body>
+		请输入您的取款金额：<input id="money" onkeydown="return checkNum(event)"/>
+		<script>
+			function checkNum(event){
+				console.log(event.keyCode);
+				var c = event.keyCode;
+				if ((c>=48 && c<=57) || (c>=96&&c<=105)) { //数字：大键盘数字  || 小键盘数字
+					return true;
+				}else{
+					return false;
+				}
+			}
+		</script>
+	</body>
+</html>

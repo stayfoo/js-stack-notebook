@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>在线选菜</title>
+		<style>
+			*{margin: 0;padding: 0;}
+			fieldset{
+				width: 500px;
+				margin: 30px;
+				padding: 20px;
+			}
+			.dish{
+				border: 1px solid #aaa;
+				width: 100px;
+				padding: 10px;
+				text-align: center;
+				float: left;
+				margin-right: 10px;
+			}
+			.chosenDish{
+				position: relative;
+				float: left;
+				padding: 10px;
+				margin-right: 10px;
+				background: #aaa;
+			}
+			.chosenDish span{
+				/*position: absolute;*/
+				top: 5px;
+				right: 5px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>在线选菜</h2>
+		<fieldset>
+			<legend>可选菜谱</legend>
+			<div id="dish01" class="dish">
+				<input type="checkbox" onclick="toggleChoose('01')"/>鱼香肉丝
+			</div>
+			<div id="dish02" class="dish">
+				<input type="checkbox" onclick="toggleChoose('02')"/>京酱肉丝
+			</div>
+			<div id="dish03" class="dish">
+				<input type="checkbox" onclick="toggleChoose('03')"/>红烧茄子
+			</div>
+		</fieldset>
+		
+		<fieldset id="chosenDishSet">
+			<legend>已选菜谱</legend>
+			<!--
+			<div id="chosenDish01" class="chosenDish">
+				鱼香肉丝
+				<span onclick="cancelChoose('01')">x</span>
+			</div>
+			-->
+		</fieldset>
+		
+		<script>
+			function toggleChoose(id){
+				var div = document.querySelector('#dish'+id);
+				var checkbox = div.getElementsByTagName('input')[0];
+				if (checkbox.checked) { //把已选定的菜添加到“已选”
+					//在“已选菜谱”中添加一个div
+					var newDiv = document.createElement('div');
+					newDiv.id = 'chosenDish'+id;
+					newDiv.className = 'chosenDish';
+					newDiv.innerHTML = checkbox.nextSibling.nodeValue;
+					var span = document.createElement('span');
+					span.setAttribute('onclick','cancelChoose(\''+id+'\')');
+					span.innerHTML = 'x';
+					newDiv.appendChild(span);
+					
+					document.querySelector('#chosenDishSet').appendChild(newDiv);
+				}else{
+					cancelChoose(id);
+				}
+			}
+			/*根据菜的id号取消该菜的选择*/
+			function cancelChoose(id){
+				//从已选菜谱中删除目标菜谱
+				var div = document.querySelector('#chosenDish'+id);
+				div.parentNode.removeChild(div);
+				
+				//从所有菜谱中将取消选择的菜谱的勾选取消
+				var dishDiv = document.querySelector('#dish'+id);
+				var checkBox = dishDiv.firstElementChild; 
+				checkBox.checked = false;
+			}
+		</script>
+	</body>
+</html>

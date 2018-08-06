@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>input标签的radio类型</title>
+		<style>
+			*{margin: 0;padding: 0;}
+		</style>
+	</head>
+	<body>
+		<input type="radio" name="loc" value="bj"/>北京
+		<input type="radio" name="loc" value="tj"/>天津
+		<input type="radio" name="loc" value="sh"/>上海
+		<script>
+			var list = document.getElementsByName('loc');
+			console.log(list);
+		</script>
+	</body>
+</html>

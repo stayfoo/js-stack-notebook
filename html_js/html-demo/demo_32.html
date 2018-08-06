@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<select name="city">
+		</select>
+		<script>
+			var select = document.getElementsByName('city')[0];
+			console.log(select.value);
+			console.log(select.multiple); //false
+			console.log(select.value);
+			console.log(select.options);
+			
+			var opt0 = new Option('北京市','bj');
+			select.add(opt0);
+			var arr = [
+					{text:'天津市',value:'tj'},
+					{text:'河北省',value:'hb'}
+					];
+			for (var i=0;i<arr.length;i++) {
+				var p = arr[i];
+				var opt = new Option(p.text,p.value);
+				select.add(opt);
+			}
+			//设定“天津市”为默认选定项
+			console.log(select.selectedIndex);
+//			select.selectedIndex = 1;
+			for (var i=0;i<select.options.length;i++) {
+				var txt = select.options[i].text;
+				if (txt === '天津市') {
+					select.selectedIndex = i;
+					break;
+				}
+			}
+		</script>
+	</body>
+</html>

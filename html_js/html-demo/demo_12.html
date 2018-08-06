@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>在线点菜</title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			select{
+				width: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>在线点菜</h2>
+		<select multiple="true" size="8" id="allDish">
+		</select>
+		<select multiple="true" size="8" id="selectedDish">
+		</select>
+		<script>
+			var arr = ['鱼香肉丝','京酱肉丝','宫保鸡丁'];
+			var fragment = document.createDocumentFragment();
+			for (var i=0; i<arr.length; i++) {
+				var option = document.createElement('option');
+				option.setAttribute('value',i);
+				option.innerHTML = arr[i];
+				option.setAttribute('ondblclick','chooseDish(this)');
+				fragment.appendChild(option);
+			}
+			document.getElementById('allDish').appendChild(fragment);
+			
+			function chooseDish(option){
+				var deleted = document.getElementById('allDish').removeChild(option);
+				document.getElementById('selectedDish').appendChild(deleted);
+			}
+		</script>
+	</body>
+</html>

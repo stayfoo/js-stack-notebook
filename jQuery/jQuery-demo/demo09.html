@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>事件冒泡</title>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script>
+		$(function(){
+			$("#first").click(function(e){
+				console.log("点击了红色框--First Clicked");
+				window.alert("First Clicked");
+//				e.stopPropagation(); //方法一：阻止事件冒泡
+				window.event.cancelBubble=true;//方法二：阻止事件冒泡
+			});
+			
+			$("#second").click(function(e){
+				console.log("点击了蓝色的框--Second Clicked");
+				window.alert("Second Clicked");
+				e.stopPropagation();
+			});
+			$("body").click(function(){
+				window.alert("Body Clicked");
+				console.log("Body Clicked");
+			});
+		});
+	</script>
+	<style>
+		#first{width: 200px;height: 200px;border: 1px solid red;}
+		#second{width: 100px;height: 100px;border: 1px solid blue; margin: 50px auto;}
+	</style>
+</head>
+<body>
+	<div id="first">
+		<div id="second"></div>
+	</div>
+</body>
+</html>

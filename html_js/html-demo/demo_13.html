@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>打开&关闭窗口</title>
+	</head>
+	<body>
+		<button onclick="closeWin()">关闭窗口</button>
+		<br />
+		<input type="checkbox" />我统一本站<a href="javascript: void(0)" onclick="openWin()">使用条款</a><br />
+		<a href="http://www.baidu.com" >a标签超链接--默认本页打开</a><br/>
+		<a href="http://www.baidu.com" target="_self">a标签超链接--target="_self"打开(本页打开)</a><br />
+		<a href="http://www.baidu.com" target="_blank">a标签超链接--target="_blank"打开（新标签页打开）</a><br/>
+		<script>
+			function openWin(){
+				open();
+			}
+		</script>
+	</body>
+</html>

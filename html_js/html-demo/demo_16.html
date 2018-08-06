@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>钟表</title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			#clock{
+				width: 300px;
+				height: 300px;
+				margin: 0 auto;
+				border: 1px solid #aaa;
+				border-radius: 50%;
+				position: relative;
+			}
+			.p{
+				position: absolute;
+				left: 150px;
+				transform-origin: left center;
+			}
+			.hour{
+				width: 60px;
+				height: 12px;
+				background: #faa;
+				top: 144px;
+				transform: rotate(45deg);
+			}
+			.minute{
+				width: 120px;
+				height: 8px;
+				background: #aaf;
+				top: 146px;
+			}
+			.second{
+				width: 150px;
+				height: 4px;
+				background: #afa;
+				top: 148px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="clock">
+			<div class="p hour"></div>
+			<div class="p minute"></div>
+			<div class="p second"></div>
+		</div>
+		<script>
+			function drawClock(){
+				var now = new Date();
+				var h = now.getHours() % 12;
+				var m = now.getMinutes();
+				var s = now.getSeconds();
+			
+				var hpointer = document.getElementsByClassName('hour')[0];
+				hpointer.style.transform = 'rotate('+(h*30-90)+'deg)';
+			
+				var  mpointer = document.getElementsByClassName('minute')[0];
+				mpointer.style.transform = 'rotate('+(m*6-90)+'deg)';
+			
+				var spointer = document.getElementsByClassName('second')[0];
+				spointer.style.transform = 'rotate('+(s*6-90)+'deg)';
+			}
+			drawClock();		
+			window.setInterval(drawClock,1000);
+		</script>
+	</body>
+</html>

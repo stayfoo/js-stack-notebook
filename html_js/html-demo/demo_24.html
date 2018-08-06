@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0px; padding: 0px;}
+		</style>
+	</head>
+	<body onload="init()">
+		<button id="btn1">按钮1</button>
+		<button id="btn2">按钮2</button>
+		<script>
+			function init(){//整个页面加载完成之后，才会绑定事件；能够保证元素一定能够被找到；
+				document.getElementById('btn2').onclick = function(){
+					console.log('world');
+				}
+			}
+			document.getElementById('btn1').onclick = function(){
+				console.log('hello');
+			}
+		</script>
+	</body>
+</html>

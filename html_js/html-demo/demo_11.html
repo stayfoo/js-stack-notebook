@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>实现“省”和“市”的级联下拉列表</title>
+	</head>
+	<body>
+		<h2>省市级联下拉</h2>
+		<select id="provinces" onchange="changeCity(this.value)">
+			<option value="-1">--请选择--</option>
+		</select>
+		<select id="citys">
+			<option value="-1">--请选择--</option>
+		</select>
+		<script>
+			var ps = ['北京','天津','河北'];
+			var cs = [
+					['东城区','西城区'],
+					['河东区','和平区'],
+					['廊坊市','石家庄市','唐山市']
+				];
+			var fragment = document.createDocumentFragment();
+			for (var i=0; i<ps.length;i++) {
+				var option = document.createElement('option');
+				option.setAttribute('value',i);
+				option.innerHTML = ps[i];
+				fragment.appendChild(option);
+			}
+			document.getElementById('provinces').appendChild(fragment);
+			
+			//添加地级市
+			function changeCity(pno){
+				if (-1==pno) {
+					return;
+				}
+				//删除下拉框中已有的地级市     方法1：
+				var cSelect = document.getElementById('citys');
+				while(cSelect.children.length>1){
+					cSelect.removeChild(cSelect.lastElementChild);
+				}
+				/* 方法2：
+				  cSelect.innerHTML = '';
+				 */
+				
+				//添加当前指定省份中的地级市
+				var cityArr = cs[pno];
+				var fragment = document.createDocumentFragment();
+				for (var i=0;i<cityArr.length;i++) {
+					var option = document.createElement('option');
+					option.innerHTML = cityArr[i];
+					document.getElementById('citys').appendChild(option);
+				}
+			};
+		</script>
+	</body>
+</html>

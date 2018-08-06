@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery UI插件库 </title>
+	<link rel="stylesheet" href="jquery-ui-1.11.2.custom/jquery-ui.css" />
+	<link rel="stylesheet" href="jquery-ui-1.11.2.custom/jquery-ui.theme.css" />
+	<script src="jquery-ui-1.11.2.custom/external/jquery/jquery.js"></script>
+	<script src="jquery-ui-1.11.2.custom/jquery-ui.js"></script>
+	<script>
+		
+		$(function(){
+			$("#accordion").accordion({active:2});
+		});
+		
+		
+		$(function(){
+			//设置对话框
+			$("#myDialog").dialog({
+				autoOpen:false,
+//				buttons:{
+//					"OK":function(){
+//						$(this).dialog("close");
+//					},
+//					"Cancel":function(){
+//						$(this).dialog("close");
+//					}
+//				}
+				buttons:[
+					{
+						text:"确认信息无误",
+						click:function(){
+							$(this).dialog("close");
+						}
+					},
+					{
+						text:"返回/修改",
+						click:function(){}
+					}
+				],
+				open:function(){
+					console.log("open");
+				}, //调出弹窗触发此函数
+//				modal:true  //打开遮罩 
+			});
+			$("#btnOpen").click(function(){
+				$("#myDialog").dialog("open");
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="accordion">
+		<h3><a href="#">项目1</a></h3>
+		<div>
+			<p>项目1介绍</p>
+		</div>
+		<h3><a href="#">项目2</a></h3>
+		<div>
+			<p>项目2介绍</p>
+		</div>
+		<h3><a href="#">项目3</a></h3>
+		<div>
+			<p>项目3介绍</p>
+		</div>
+		<h3><a href="#">项目4</a></h3>
+		<div>
+			<p>项目4介绍</p>
+		</div>
+	</div>
+	<br/>
+	<div id="myDialog" title="Dialog Title:确认您的信息">
+		用户名称：<input /><br/>
+		公司名称：<input /><br />
+		电话号码：<input /><br/>
+	</div>
+	<br />
+	<input id="btnOpen" type="button" value="提交" />
+</body>
+</html>

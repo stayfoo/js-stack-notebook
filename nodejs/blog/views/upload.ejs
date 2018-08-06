@@ -1,0 +1,155 @@
+<!-- 上传文件 - 孟跃平的网络日志 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/bootstrap-3.3.7-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/stylesheets/font-awesome/font-awesome.css" />
+    <link rel="stylesheet" href="/stylesheets/base.css" />
+    <link rel="stylesheet" href="/stylesheets/github-markdown.css" />
+    <title><%= title %></title>
+    <style charset="utf-8" type="text/css">
+        .line {
+            background: #222;
+            height: 2px;
+            top:0;
+        }
+        .header h1 {
+            margin-top: 0.9em;
+            font-size: 1.8em;
+            color: #556677;
+        }
+        .container {
+            padding: 25px;
+        }
+        .container-inner {
+            
+        }
+        .content {
+            padding: 15px;
+        }
+        /*分割线*/
+        h1,h2,h3 {
+            font-size: 2.2em;
+            font-weight: 500;
+            margin: 0.4em 0 0.2em 0;
+            padding: 0 0 0.2em 0;
+            color: #000000;
+            letter-spacing: -0.03em;
+            border-bottom: 1px solid #d3d3d3;
+        }
+        /*flex 弹性盒子*/
+        .flex {
+            display: flex;
+            display: -webkit-flex;
+        }
+        .flex-add {
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .alpha {
+            flex:4;
+            padding: 10px;
+        }
+        .alpha-inner .home-page ul li span {
+            color: rgba(0,0,0,0.5);
+        }
+        .home-page {
+            padding: 2em;
+        }
+        .beta {
+            flex:1;
+            padding: 10px;
+        }
+        .module {
+            background-color: #DEEBF7;
+            padding: 2em;
+            border-radius: 1em;
+            margin-bottom: 1em;
+        }
+        .module-categories {
+
+        }
+        .module-list {
+            padding-left: 3em;
+        }
+        .module-list-item {
+            list-style: square;
+            padding: 0.5em;
+        }
+        /*底部*/
+        .footer {
+            text-align:center;
+            height: 30px;
+            background-color: #DEEBF7;
+            border-radius: 1em;
+        }
+        .footer-content p {
+            font-size: 15px;
+            text-align: right;
+            padding-right: 1em;
+            padding-top: 0.3em;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <div class="line"></div>
+    <div class="container">
+        <div class="container-inner">
+            <!-- 头部 -->
+            <div class="header">
+                <h1><a href="/">孟跃平的网络日志</a></h1>
+            </div>
+            <!-- 内容 -->
+            <div class="content">
+                <div class="flex flex-add content-inner">
+                    <!-- 内容 -->
+                    <div class="alpha">
+                        <div class="alpha-inner">
+                            <!-- 标题 -->
+                            <h1>上传文件 及 文件信息</h1>
+                            <form id="editfile"  enctype='multipart/form-data' >
+                                文章标题 ：<input type="text" name="title"> <br>
+                                上传文件 ：<input id="upfile" type="file" name="file"/> <br>
+                                <input type="submit" value='提交' />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 底部 -->
+            <div class="footer">
+                <div class="footer-inner">
+                    <div class="footer-content">
+                        <p><a href="#">联系方式</a> | <a href="http://www.mengyueping.com/" title="孟跃平的网站" target="_blank" class="footer_font_theme">mengyueping.com</a> 2016 - 2017</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="line"></div>
+    
+    <script src="/javascripts/jquery-3.1.1.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $('#editfile').submit(function (e) {
+            var data = new FormData();
+            data.append('file', $('#upfile')[0].files[0]);
+            $.ajax({
+                url: '/upload',
+                data: data,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function(data){
+                    console.log(data);   //返回上传后所在的路径
+                }
+            });
+            e.preventDefault();
+        });    
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>简单动画效果</title>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script>
+		$(function(){
+			$("input[value='hide()']").click(function(){
+				$("#myDiv").hide(5000,function(){
+					$("input[value='hide()']").hide();
+				});
+			});
+			
+			$("input[value='show()']").click(function(){
+				$("#myDiv").show(5000,function(){
+					$("input[value='hide()']").show();
+				});
+			});
+			
+			$("input[value='slideUp()']").click(function(){
+				$("#myDiv").slideUp("slow");
+			});
+			
+			$("input[value='animate()']").click(function(){
+				$("#myDiv").animate({width:"200px",height:"100px",left:"500px",top:"300px",borderRadius:"50%"},5000).animate({width:"100px",height:"200px",left:"0px",top:"50px"},5000);
+				
+				$("#myDiv").animate({width:"200px",height:"100px",left:"500px",top:"300px"},5000);
+				
+				$("#myDiv").animate({width:"100px",height:"200px",left:"0px",top:"50px"},5000);
+			});
+			
+		});
+	</script>
+	<style>
+		#myDiv{left: 0px;top: 50px;position: absolute;width: 100px;height: 200px;background: red;}
+	</style>
+</head>
+<body>
+	<div id="myDiv"></div>
+	<input type="button" value="hide()"/>
+	<input type="button" value="show()"/>
+	<input type="button" value="slideUp()"/>
+	<input type="button" value="slideDown()"/>
+	<input type="button" value="fadeOut()"/>
+	<input type="button" value="fadeIn()"/>
+	<input type="button" value="animate()"/>
+</body>
+</html>

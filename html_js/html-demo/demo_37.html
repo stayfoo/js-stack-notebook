@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>表单验证提交 密码强度验证</title>
+		<style>
+			*{margin: 0; padding: 0;}
+			.err{
+				color: red;
+			}
+			.ok{
+				color: green;
+			}
+			.warn{
+				color: orange;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>使用DOM对表输入进行验证</h2>
+		<form action="8.php">
+			用户名：<input name="userName" id="userName"/><span></span><br/>
+			密码：<input type="password" id="userPwd" name="userPwd"/><span></span><br />
+			<input type="button" id="submitForm" value="提交"/>
+		</form>
+		<script>
+			/*提交按钮监听事件*/
+			document.querySelector('#submitForm').onclick = function(){
+				var unInput = document.querySelector('#userName');
+				if (unInput.value.trim().length<2) {
+					unInput.nextSibling.innerHTML = '用户名长度不合法';
+					unInput.nextSibling.className = 'err';
+					unInput.focus();
+				}else{
+					var pwdInput = document.querySelector('#userPwd');
+					if (pwdInput.value.trim().length<6) {
+						pwdInput.nextSibling.innerHTML = '密码长度不足6位';
+						pwdInput.nextSibling.className = 'err';
+						pwdInput.focus();
+					}else{ //提交表单
+						document.forms[0].submit();
+					}
+				}
+			}
+			
+		
+			document.querySelector('#userName').onblur = function(){
+				var uname = this.value.trim();
+//				console.log(uname);
+				if (uname.length<2 || uname.length>6) {
+					this.nextSibling.innerHTML = '用户名长度必须在2~6之间';
+					this.nextSibling.className = 'err';
+					this.focus();
+				}else{
+					this.nextSibling.innerHTML = '用户名合法';
+					this.nextSibling.className = 'ok';
+				}
+			}
+			
+			document.querySelector('#userPwd').onkeyup = function(){
+				var pwd = this.value.trim();
+				console.log(pwd);
+				if (pwd.length<6) {
+					this.nextSibling.innerHTML = '密码长度不足6位';
+					this.nextSibling.className = 'err';
+				}else{
+					var strength = pwdStrength(pwd);
+					if (1==strength) {
+						this.nextSibling.innerHTML = '密码强度不足';
+						this.nextSibling.className = 'err';					
+					}else if(2==strength){
+						this.nextSibling.innerHTML = '密码强度一般';
+						this.nextSibling.className = 'warn';
+					}else if (3==strength) {
+						this.nextSibling.innerHTML = '密码强度很好';
+						this.nextSibling.className = 'ok';
+					}
+				}
+			}
+			/**
+			 * 判断一个密码字符串的强度
+			 * 1、只包含一种类型字符
+			 * 2、包含两种类型字符
+			 * 3、包含三种以上类型字符
+			 */
+			function pwdStrength(pwd){
+				var patt = /^([a-z]*|\d*|[^a-z0-9]*)$/i;
+				if (patt.test(pwd)) {
+					return 1;
+				}else{
+					patt = /^[a-z0-9]*$/i;
+					if (patt.test(pwd)) {
+						return 2;
+					}else{
+						return 3;
+					}
+				}
+			} 
+		</script>
+	</body>
+</html>

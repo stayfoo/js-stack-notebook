@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>表单验证formValidator</title>
+	<script src="formValidator/jquery_last.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="formValidator/style/validator.css" />
+	<script src="formValidator/formValidator.js" type="text/javascript"></script>
+	<script src="formValidator/formValidatorRegex.js" type="text/javascript"></script>
+	<script>
+	/*
+	 * 完成密码的验证设置
+	 * 1、用户密码：必须是6-12位
+	 * 2、确认密码：必须与用户密码相同
+	 * 
+	 * 推荐步骤：
+	 * 1、对两个控件进行初始化 formValidator 函数
+	 * 2、对用户密码进行校验设置 InputValidator
+	 * 3、对确认密码进行校验设置 CompareValidator
+	 */
+		$(document).ready(function(){
+			//1、表单验证初始化（$.formValidator.initConfig）
+			$.formValidator.initConfig();
+			//2、初始化uname
+			$("#uname").formValidator({
+				onempty:"用户名称不能为空",
+				onshow:"请输入用户名称，6-18位",
+				onfocus:"字母、数字、下划线组成",
+				oncorrect:"恭喜你，用户名称可用"
+			}).InputValidator({
+				type:"size",//默认值，可以省略
+				min:6,
+				max:18,
+				onerror:"用户名称必须是6-18位"
+			});
+			
+			//3、表单验证事件
+			$("#frmLogin").submit(function(){
+//				return false;
+				return $.formValidator.PageIsValid();
+			});
+		});
+	</script>
+</head>
+<body>
+	<form id="frmLogin" method="get">
+		<table>
+			<tbody>
+				<tr>
+					<td>用户名称</td>
+					<td>
+						<input type="text" name="uname" id="uname"/>
+					</td>
+					<td>
+						<div id="unameTip"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>用户密码</td>
+					<td>
+						<input type="password" name="upwd" id="upwd"/>
+					</td>
+					<td>
+						<div id="upwdTip"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>确认密码</td>
+					<td>
+						<input type="text" name="uConfimPwd" id="uConfimPwd"/>
+					</td>
+					<td>
+						<div id="uConfimPwdTip"></div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<input type="submit" value="提交" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery初始化事件</title>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script>
+		$(document).ready(function(){
+			//绑定事件
+//			$("#btn").click(function(){
+//				$("#frm").submit();
+//			});
+			
+			$("#btn").bind("click",function(){
+				console.log("Hello I'm second Click Me... ...");
+			});
+		});
+	</script>
+</head>
+<body>
+	<form id="frm" action="test.do">
+		姓名：<input type="text" name="txtName">
+	</form>
+	<input id="btn" type="button" value="Click Me" />
+</body>
+</html>

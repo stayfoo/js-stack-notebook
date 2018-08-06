@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>HTML DOM创建表格</title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+		</style>
+	</head>
+	<body>
+		<table id="table1" border="1" width="200">
+			<tr>
+				<td>AA</td>
+				<td>BB</td>
+			</tr>
+			<tr>
+				<td>CC</td>
+				<td>DD</td>
+			</tr> 
+		</table>
+		<h2>使用HTML DOM创建一个表格</h2>
+		<script>
+			var table = document.querySelector('#table1');
+			console.log(table.id);
+			console.log(table.border);
+			console.log(table.width);
+			
+			console.log(table.rows);
+			console.log(table.cells);
+			
+			var c = table.createCaption();
+			c.innerHTML = '第一季度销售统计';
+			
+			
+			
+			/*使用HTML DOM创建一个表格*/
+			var t = document.createElement('table');
+			t.border = 1;
+			t.borderColor = '#aaf';
+			t.width = 200;
+			//添加标题
+			var caption = t.createCaption();
+			caption.innerHTML = '员工统计表';
+			//添加THEAD
+			t.createTHead();
+			//添加TBODY
+			var tr0 = t.insertRow();  //tr
+			var td00 = tr0.insertCell(); //td
+			td00.innerHTML = 'AA';
+			var td01 = tr0.insertCell(); //td
+			td01.innerHTML = 'BB';
+			
+			var tr1 = t.insertRow();
+			var td10 = tr1.insertCell();
+			td10.innerHTML = 'CC';
+			var td11 = tr1.insertCell(0);
+			td11.innerHTML = 'DD';
+			
+			document.body.appendChild(t);
+			
+		</script>
+	</body>
+</html>

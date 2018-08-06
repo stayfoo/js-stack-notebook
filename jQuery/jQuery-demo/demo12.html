@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>日历插件My97</title>
+	<script src="js/jquery-1.11.1.js"></script>
+	<script src="My97/WdatePicker.js"></script>
+	<script>
+		$(function(){
+			//为txtDate 添加 focus事件
+			$("#txtDate").focus(function(){
+				WdatePicker({
+					isShowToday:false,
+					isShowClear:false,
+					isShowOK:false,
+					minDate:"%y-%M-%d",
+					maxDate:"%y-%M-{%d+19}"
+				});
+			});
+			
+			$("#txtNewDate").focus(function(){
+				WdatePicker({
+					isShowToday:false,
+					isShowClear:false,
+					isShowOK:false,
+					minDate:"#F{$dp.$D('txtDate') || '%y-%M-%d'}",
+					maxDate:"%y-%M-{%d+19}",
+					onpicking:function(dp){
+						var oldDate = dp.cal.getDateStr();
+						var newDate = dp.cal.getNewDateStr();
+						if(newDate != oldDate){
+							var ret = window.confirm("是否用"+newDate+"取代"+oldDate);
+							if(ret){
+								return false;//不取消事件
+							}else{
+								return true;//取消当前的事件
+							}
+						}
+					}
+				});
+			});
+			
+			
+			$("#btn").click(function(){
+				WdatePicker({
+					el:"txtDate" //通过控件id，显示选中的日期
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<input type="text" id="txtDate" class="Wdate" />
+	<input type="text" id="txtNewDate" class="Wdate" />
+	<input type="button" value="Click" id="btn" />
+</body>
+</html>
